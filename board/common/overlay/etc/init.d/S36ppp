@@ -1,0 +1,137 @@
+#!/bin/bash
+
+sys_conf="/etc/ppp/default"
+conf="/data/etc/ppp"
+
+prog="/usr/sbin/pppd"
+dev="ppp0"
+provider="mobile"
+
+watch_conf="/data/etc/watch.conf"
+
+test -f $watch_conf && source $watch_conf
+
+if [ -d $sys_conf ] && ! [ -d $conf ]; then
+    cp -r $sys_conf $conf
+fi
+
+test -f $conf/modem || exit 0
+
+test -n "$os_version" || source /etc/init.d/base
+
+connected() {
+    ifconfig | grep $dev &>/dev/null 2>&1 && return 0 || return 1
+}
+
+watch() {
+    count=0
+    while true; do
+        sleep 5
+        if connected; then
+            count=0
+        else
+            if [ $count -lt $link_watch_timeout ]; then
+                count=$(($count + 5))
+                logger -t ppp -s "disconnected"
+            else
+                logger -t ppp -s "disconnected for $link_watch_timeout seconds, rebooting"
+                reboot
+            fi
+        fi
+    done
+}
+
+start() {
+    if [ -s $conf/usb_modeswitch ]; then
+        IFS=: venprod=($(cat $conf/usb_modeswitch))
+        vendor=${venprod[0]}
+        product=${venprod[1]}
+        # wait for usb device
+        if [ -n "$vendor" ] && [ -n "$product" ]; then
+            msg_begin "Starting usb_modeswitch"
+            count=0
+            while true; do
+                if lsusb | grep $vendor:$product >/dev/null 2>&1 || [ $count -gt $link_watch_timeout ]; then
+                    break
+                fi
+
+                count=$(($count + 1))
+                sleep 1
+            done
+            /usr/sbin/usb_modeswitch -c /etc/usb_modeswitch.conf -v $vendor -p $product > /var/log/usb_modeswitch.log 2>&1
+            msg_done
+        fi
+    fi
+
+    msg_begin "Starting pppd"
+
+    # wait for modem
+    modem=$(head -n 1 $conf/modem)
+    count=0
+    while true; do
+        if [ -e /dev/$modem ] || [ $count -gt $link_watch_timeout ]; then
+            break
+        fi
+
+        count=$(($count + 1))
+        sleep 1
+    done
+
+    if ! [ -e /dev/$modem ]; then
+        msg_fail "modem /dev/$modem not present"
+        return 1
+    fi
+
+    $prog call $provider
+    count=0
+    while true; do
+        sleep 1
+
+        if connected; then
+            break
+        fi
+
+        if [ $count -gt $link_watch_timeout ] || ! pidof pppd > /dev/null; then
+            msg_fail
+            reboot
+            return 1
+        fi
+
+        count=$(($count + 1))
+    done
+
+    if [ "$link_watch" == "yes" ]; then
+        watch &
+    fi
+
+    msg_done
+}
+
+stop() {
+    msg_begin "Stopping pppd"
+    killall pppd &>/dev/null
+    ps | grep ppp | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
+    msg_done
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    restart)
+        stop
+        start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
+
