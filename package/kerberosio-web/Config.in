@@ -1,0 +1,3 @@
+config BR2_PACKAGE_KERBEROSIO_WEB
+	bool "kerberosio-web"
+	help
