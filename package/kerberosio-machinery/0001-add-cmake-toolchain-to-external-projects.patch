@@ -1,4 +1,3 @@
-
 From 426e3e438dd5e262b8d7723862ace11960ed465e Mon Sep 17 00:00:00 2001
 From: root <root@buildroot.cedricverstraeten.be>
 Date: Thu, 10 Mar 2016 09:35:34 -0500
@@ -20,14 +19,14 @@ index 926e637..bcbcac8 100644
      -DCMAKE_BUILD_TYPE:STRING=Release
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -Dgtest_force_shared_crt=OFF
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
 @@ -20,4 +21,4 @@ set(GOOGLETEST_LIBRARY_DIR ${CMAKE_BINARY_DIR}/googletest/)
  include_directories(${GOOGLETEST_INCLUDE_DIR})
  link_directories(${GOOGLETEST_LIBRARY_DIR})
-
+ 
 -set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
 \ No newline at end of file
 +set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
@@ -40,27 +39,27 @@ index a8f97c9..2e3d2c2 100644
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
 -    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
-+     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
++-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
 +
  )
-
+ 
 -set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
-+set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
++set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
  if(NOT WIN32)
 -  set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
-+  set(OPENCV_LIBRARY_DIR${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
++  set(OPENCV_LIBRARY_DIR ${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
  else()
    set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/x86/vc12/lib)
  endif()
 @@ -58,9 +60,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_videoio op
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
-
+ 
 -if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
 -    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
-+if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
-+    include(${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
++if(EXISTS "${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
++    include(${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
      add_custom_target(rerun)
  else()
      add_custom_target(rerun ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS opencv)
@@ -75,13 +74,13 @@ index 36e7d1f..dbc01fe 100644
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -DBUILD_SHARED_LIBS=OFF
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_UTILS=OFF
  )
-
+ 
 @@ -33,4 +34,4 @@ set(RASPBERRYPI_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
  set(RASPBERRYPI_LIBRARIES raspicam.a raspicam_cv.a mmal mmal_core mmal_util)
-
+ 
  include_directories(${RASPBERRYPI_INCLUDE_DIR})
 -link_directories(${RASPBERRYPI_LIBRARY_DIR})
 \ No newline at end of file
@@ -101,10 +100,10 @@ index 34eb211..b192d58 100644
  )
 @@ -18,4 +18,4 @@ set(RESTCLIENT_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
  set(RESTCLIENT_LIBRARIES restclient-cpp curl)
-
+ 
  include_directories(${RESTCLIENT_INCLUDE_DIR})
 -link_directories(${RESTCLIENT_LIBRARY_DIR})
 \ No newline at end of file
 +link_directories(${RESTCLIENT_LIBRARY_DIR})
---
+-- 
 1.9.1
