@@ -19,7 +19,7 @@ index 926e637..1705d47 100644
      -DCMAKE_BUILD_TYPE:STRING=Release
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -Dgtest_force_shared_crt=OFF
-+    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
@@ -39,16 +39,16 @@ index a8f97c9..dd83675 100644
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
 -    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-+    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
-+    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
 +
  )
  
 -set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
-+set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
++set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
  if(NOT WIN32)
 -  set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
-+  set(OPENCV_LIBRARY_DIR ${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
++  set(OPENCV_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
  else()
    set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/x86/vc12/lib)
  endif()
@@ -58,8 +58,8 @@ index a8f97c9..dd83675 100644
  
 -if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
 -    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
-+if(EXISTS "${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
-+    include(${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
++if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
++    include(${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
      add_custom_target(rerun)
  else()
      add_custom_target(rerun ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS opencv)
@@ -74,7 +74,7 @@ index 36e7d1f..bd80a9a 100644
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -DBUILD_SHARED_LIBS=OFF
-+    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_UTILS=OFF
  )
  
