@@ -1,7 +1,7 @@
-From 426e3e438dd5e262b8d7723862ace11960ed465e Mon Sep 17 00:00:00 2001
+From 23caaf02568330c7e93e22f23e34dda837b0b9b4 Mon Sep 17 00:00:00 2001
 From: root <root@buildroot.cedricverstraeten.be>
-Date: Thu, 10 Mar 2016 09:35:34 -0500
-Subject: [PATCH 1/1] add cmake toolchain to external projects
+Date: Thu, 10 Mar 2016 13:03:15 -0500
+Subject: [PATCH 1/1] add arm support to cmake - external projects
 
 Signed-off-by: root <root@buildroot.cedricverstraeten.be>
 ---
@@ -12,14 +12,14 @@ Signed-off-by: root <root@buildroot.cedricverstraeten.be>
  4 files changed, 14 insertions(+), 10 deletions(-)
 
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
-index 926e637..bcbcac8 100644
+index 926e637..1705d47 100644
 --- a/cmake/External-Googletest.cmake
 +++ b/cmake/External-Googletest.cmake
 @@ -10,6 +10,7 @@ ExternalProject_Add(googletest
      -DCMAKE_BUILD_TYPE:STRING=Release
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -Dgtest_force_shared_crt=OFF
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
@@ -31,7 +31,7 @@ index 926e637..bcbcac8 100644
 \ No newline at end of file
 +set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
-index a8f97c9..2e3d2c2 100644
+index a8f97c9..dd83675 100644
 --- a/cmake/External-OpenCV.cmake
 +++ b/cmake/External-OpenCV.cmake
 @@ -43,12 +43,14 @@ ExternalProject_Add(opencv
@@ -39,8 +39,8 @@ index a8f97c9..2e3d2c2 100644
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
 -    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
-+     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
 +
  )
  
@@ -67,14 +67,14 @@ index a8f97c9..2e3d2c2 100644
 \ No newline at end of file
 +endif()
 diff --git a/cmake/External-RaspiCam.cmake b/cmake/External-RaspiCam.cmake
-index 36e7d1f..dbc01fe 100644
+index 36e7d1f..bd80a9a 100644
 --- a/cmake/External-RaspiCam.cmake
 +++ b/cmake/External-RaspiCam.cmake
 @@ -24,6 +24,7 @@ ExternalProject_Add(raspicamera
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -DBUILD_SHARED_LIBS=OFF
-+-DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_UTILS=OFF
  )
  
@@ -107,3 +107,4 @@ index 34eb211..b192d58 100644
 +link_directories(${RESTCLIENT_LIBRARY_DIR})
 -- 
 1.9.1
+
