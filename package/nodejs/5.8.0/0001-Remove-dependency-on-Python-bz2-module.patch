@@ -3,13 +3,13 @@ From: Martin Bark <martin@barkynet.com>
 Date: Tue, 30 Jun 2015 09:43:11 +0100
 Subject: [PATCH 1/4] Remove dependency on Python bz2 module
 
-The Python bz2 module is only needed in certain cases, so only import
-it when needed. In the normal nodejs build, this allows to remove the
-dependency on this module.
+Do not import the bz2 module, it is not used.
 
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 [Martin: adapt to 0.12.5]
 Signed-off-by: Martin Bark <martin@barkynet.com>
+[yann.morin.1998@free.fr: adapt to 4.1.2]
+Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
 ---
  deps/v8/tools/js2c.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -26,14 +26,6 @@ index 77485f6..371caf5 100755
  import textwrap
  
  
-@@ -492,6 +491,7 @@ def CompressMaybe(sources, compression_type):
-   if compression_type == "off":
-     return sources_bytes
-   elif compression_type == "bz2":
-+    import bz2
-     return bz2.compress(sources_bytes)
-   else:
-     raise Error("Unknown compression type %s." % compression_type)
 -- 
 2.1.4
 

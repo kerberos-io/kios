@@ -5,6 +5,8 @@ Subject: [PATCH 2/4] gyp: force link command to use CXX
 
 Signed-off-by: Samuel Martin <s.martin49@gmail.com>
 Signed-off-by: Martin Bark <martin@barkynet.com>
+[yann.morin.1998@free.fr: adapt to 4.1.2]
+Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
 ---
  tools/gyp/pylib/gyp/generator/make.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -13,7 +15,7 @@ diff --git a/tools/gyp/pylib/gyp/generator/make.py b/tools/gyp/pylib/gyp/generat
 index b88a433..0a1f2e0 100644
 --- a/tools/gyp/pylib/gyp/generator/make.py
 +++ b/tools/gyp/pylib/gyp/generator/make.py
-@@ -141,7 +141,7 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
+@@ -142,7 +142,7 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
  quiet_cmd_link = LINK($(TOOLSET)) $@
