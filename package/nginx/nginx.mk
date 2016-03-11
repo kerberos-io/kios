@@ -240,6 +240,15 @@ endef
 define NGINX_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 0755 package/nginx/S50nginx \
 		$(TARGET_DIR)/etc/init.d/S50nginx
+
+    $(INSTALL) -D -m 0755 package/nginx/nginx-php.conf \
+        $(TARGET_DIR)/etc/nginx/nginx.conf
 endef
+
+define NGINX_REMOVE_LOG
+        rm -f $(TARGET_DIR)/var/log
+endef
+
+NGINX_PRE_CONFIGURE_HOOKS += NGINX_REMOVE_LOG
 
 $(eval $(generic-package))
