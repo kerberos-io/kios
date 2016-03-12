@@ -12,13 +12,13 @@ if BR2_PACKAGE_PHP
 source "package/php/Config.ext"
 
 config BR2_PACKAGE_PHP_CLI
-	bool
+	bool "PHP CLI"
 
 config BR2_PACKAGE_PHP_CGI
-	bool
+	bool "PHP CGI"
 
 config BR2_PACKAGE_PHP_FPM
-	bool
+	bool "PHP FPM"
 
 choice
 	prompt "Interface"
