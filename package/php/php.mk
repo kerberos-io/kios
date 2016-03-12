@@ -282,7 +282,6 @@ PHP_CONF_OPTS += \
 PHP_DEPENDENCIES += jpeg libpng freetype
 endif
 
-ifeq ($(BR2_PACKAGE_PHP_FPM),y)
 define PHP_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 0755 $(@D)/sapi/fpm/init.d.php-fpm \
 		$(TARGET_DIR)/etc/init.d/S49php-fpm
@@ -305,7 +304,6 @@ define PHP_INSTALL_FPM_CONF
 endef
 
 PHP_POST_INSTALL_TARGET_HOOKS += PHP_INSTALL_FPM_CONF
-endif
 
 define PHP_EXTENSIONS_FIXUP
 	$(SED) "/prefix/ s:/usr:$(STAGING_DIR)/usr:" \
