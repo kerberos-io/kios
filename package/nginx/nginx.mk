@@ -246,7 +246,7 @@ define NGINX_INSTALL_INIT_SYSV
 endef
 
 define NGINX_REMOVE_LOG
-        rm -f $(TARGET_DIR)/var/log
+        rm -rf $(TARGET_DIR)/var/log
 endef
 
 NGINX_PRE_CONFIGURE_HOOKS += NGINX_REMOVE_LOG
