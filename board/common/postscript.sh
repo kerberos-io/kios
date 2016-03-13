@@ -28,6 +28,11 @@ ln -s /tmp $TARGET/var/run
 ln -s /tmp $TARGET/var/spool
 ln -s /tmp $TARGET/var/tmp
 
+# wireless
+cp $COMMON_DIR/wpa_supplicant.conf $BOOT_DIR
+ln -s $BOOT_DIR/wpa_supplicant.conf $TARGET/data/etc
+cp $COMMON_DIR/static_ip.conf $BOOT_DIR
+ln -s $BOOT_DIR/static_ip.conf $TARGET/data/etc
+
 $COMMON_DIR/cleanups.sh
 test -x $BOARD_DIR/cleanups.sh && test -x $BOARD_DIR/cleanups.sh || true
-

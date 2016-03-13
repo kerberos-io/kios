@@ -12,4 +12,3 @@ cp $IMG_DIR/zImage $BOOT_DIR/kernel.img
 cp $RPI_FW_DIR/bootcode.bin $BOOT_DIR
 cp $RPI_FW_DIR/start.elf $BOOT_DIR
 cp $RPI_FW_DIR/fixup.dat $BOOT_DIR
-
