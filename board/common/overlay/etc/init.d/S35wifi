@@ -9,7 +9,7 @@ iface=wlan0
 driver=wext
 
 sys_watch_conf="/etc/watch.conf"
-watch_conf="/data/etc/watch.conf"
+watch_conf="/etc/watch.conf"
 
 link_watch=yes
 link_watch_timeout=20

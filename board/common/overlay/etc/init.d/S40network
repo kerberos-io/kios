@@ -3,8 +3,8 @@
 mkdir -p /var/lib/dhcp
 dh_conf="/var/cache/dhclient.conf"
 sys_static_conf="/etc/static_ip.conf"
-static_conf="/data/etc/static_ip.conf"
-watch_conf="/data/etc/watch.conf"
+static_conf="/etc/static_ip.conf"
+watch_conf="/etc/watch.conf"
 
 link_watch=yes
 link_watch_timeout=20

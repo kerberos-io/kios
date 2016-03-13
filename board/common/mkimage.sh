@@ -31,9 +31,9 @@ BOOT_SIZE="20" # MB
 ROOT_SRC=$IMG_DIR/rootfs.tar
 ROOT=$IMG_DIR/.root
 ROOT_IMG=$IMG_DIR/root.img
-ROOT_SIZE="220" # MB
+ROOT_SIZE="250" # MB
 
-DISK_SIZE="250" # MB
+DISK_SIZE="300" # MB
 
 # boot filesystem
 msg "creating boot loop device"

@@ -1,4 +1,4 @@
-w#!/bin/sh
+#!/bin/sh
 #
 # Start/stop kerberosio
 #
@@ -9,7 +9,7 @@ case "$1" in
   start)
 	echo "Starting kerberosio..."
 	mkdir -p /var/log/kerberosio /var/tmp/kerberosio
-	start-stop-daemon -S -x /usr/bin/kerberosio -p $PIDFILE
+	start-stop-daemon -S -x /usr/bin/kerberosio -p $PIDFILE &
 	;;
   stop)
 	echo -n "Stopping kerberosio..."
