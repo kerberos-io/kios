@@ -36,18 +36,8 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
+    chmod -R 777 $(TARGET_DIR)/var/www/web/app/storage
     
 endef 
-
-####################
-#
-# Access rights
-#
-
-define KERBEROSIO_WEB_ACCESS_RIGHTS
-	chmod -R 777 $(TARGET_DIR)/var/www/web/app/storage
-endef
-
-KERBEROSIO_WEB_INSTALL_TARGET_HOOKS += KERBEROSIO_WEB_ACCESS_RIGHTS
 
 $(eval $(generic-package))
