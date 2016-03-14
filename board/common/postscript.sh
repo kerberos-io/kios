@@ -32,5 +32,5 @@ $COMMON_DIR/cleanups.sh
 test -x $BOARD_DIR/cleanups.sh && test -x $BOARD_DIR/cleanups.sh || true
 
 # wireless
-cp $COMMON_DIR/wpa_supplicant.conf $BOOT_DIR
+cp $COMMON_DIR/wireless.conf $BOOT_DIR
 cp $COMMON_DIR/static_ip.conf $BOOT_DIR
