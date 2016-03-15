@@ -12,13 +12,12 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
 fi
 
 start() {
-    msg_begin "Starting kerberos.io machinery"
+    echo  "Starting kerberos.io machinery"
     kerberosio $conf &
-    msg_done
 }
 
 stop() {
-    msg_begin "Stopping kerberos.io machinery"
+    echo "Stopping kerberos.io machinery"
     ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
 }
 

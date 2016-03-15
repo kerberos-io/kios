@@ -1,12 +1,10 @@
 #!/bin/bash
 
-msg_begin "Configuring kerberos.io web"
-    
 sys_conf="/var/www/web"
 conf="/data/www/"
 
 start() {
-    msg_begin "Configuring kerberos.io web"
+    echo "Configuring kerberos.io web"
     
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
         mkdir -p /data/www/cache
@@ -16,11 +14,11 @@ start() {
         mkdir -p /data/www/views
         chmod -R 777 /data/www
     fi
-    
-    msg_done
 }
 
-stop() {}
+stop() {
+
+}
 
 case "$1" in
     start)
