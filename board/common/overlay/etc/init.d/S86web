@@ -17,7 +17,7 @@ start() {
 }
 
 stop() {
-
+    echo "Stopping kerberos.io web"
 }
 
 case "$1" in
