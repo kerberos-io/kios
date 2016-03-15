@@ -36,7 +36,8 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
-    chmod -R 777 $(TARGET_DIR)/var/www/web/app/storage
+    rm -rf $(TARGET_DIR)/var/www/web/app/storage
+    ln -s /data/www/ $(TARGET_DIR)/var/www/web/app/storage
     
 endef 
 

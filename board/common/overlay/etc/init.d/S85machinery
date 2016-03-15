@@ -5,20 +5,20 @@ conf="/data/config/config.xml"
 
 if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p "/data/config"
-    cp -R "/etc/opt/kerberosio/config/*" "/data/config/"
+    cp -R "/etc/opt/kerberosio/config/" "/data/config/"
     mkdir -p "/data/symbols"
     mkdir -p "/data/logs"
     mkdir -p "/data/media"
 fi
 
 start() {
-    msg_begin "Starting kerberosio"
+    msg_begin "Starting kerberos.io machinery"
     kerberosio $conf &
     msg_done
 }
 
 stop() {
-    msg_begin "Stopping kerberosio"
+    msg_begin "Stopping kerberos.io machinery"
     ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
 }
 
