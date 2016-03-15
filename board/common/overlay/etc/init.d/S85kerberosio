@@ -1,0 +1,44 @@
+#!/bin/bash
+
+sys_conf="/etc/opt/kerberosio/config/config.xml"
+conf="/data/config/config.xml"
+
+if [ -f $sys_conf ] && ! [ -f $conf ]; then
+    mkdir -p "/data/config"
+    cp -R "/etc/opt/kerberosio/config/*" "/data/config/"
+    mkdir -p "/data/symbols"
+    mkdir -p "/data/logs"
+    mkdir -p "/data/media"
+fi
+
+start() {
+    msg_begin "Starting kerberosio"
+    kerberosio $conf &
+    msg_done
+}
+
+stop() {
+    msg_begin "Stopping kerberosio"
+    ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    restart)
+        stop
+        start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?

@@ -9,13 +9,21 @@ KERBEROSIO_MACHINERY_SITE = https://github.com/kerberos-io/machinery
 KERBEROSIO_MACHINERY_SITE_METHOD = git
 KERBEROSIO_MACHINERY_INSTALL_TARGET = YES
 KERBEROSIO_MACHINERY_DEPENDENCIES = libcurl ffmpeg eigen
+ifeq ($(BR2_PACKAGE_KERBEROSIO_MACHINERY_RPI),y)
+	KERBEROSIO_MACHINERY_DEPENDENCIES += rpi-firmware rpi-userland
+endif
+
 KERBEROSIO_MACHINERY_MAKE=$(MAKE1)
 
 define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
 
-	# Link capture directory to data folder
+	# Link directories to data folder
 	rm -rf $(TARGET_DIR)/etc/opt/kerberosio/capture
 	ln -s /data/media $(TARGET_DIR)/etc/opt/kerberosio/capture 
+        rm -rf $(TARGET_DIR)/etc/opt/kerberosio/logs
+        ln -s /data/logs $(TARGET_DIR)/etc/opt/kerberosio/logs
+        rm -rf $(TARGET_DIR)/etc/opt/kerberosio/symbols
+        ln -s /data/symbols $(TARGET_DIR)/etc/opt/kerberosio/symbols
 
 endef
 
