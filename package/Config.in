@@ -527,6 +527,7 @@ menu "Mono libraries/modules"
 	source "package/mono-gtksharp3/Config.in"
 endmenu
 endif
+        source "package/phantomjs/Config.in"
 	source "package/nodejs/Config.in"
 	source "package/perl/Config.in"
 if BR2_PACKAGE_PERL
