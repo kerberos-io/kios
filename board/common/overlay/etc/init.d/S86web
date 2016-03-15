@@ -9,11 +9,12 @@ start() {
     msg_begin "Configuring kerberos.io web"
     
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
-        mkdir -p "/data/www/cache"
-        mkdir -p "/data/www/logs"
-        mkdir -p "/data/www/meta"
-        mkdir -p "/data/www/sessions"
-        mkdir -p "/data/www/views"
+        mkdir -p /data/www/cache
+        mkdir -p /data/www/logs
+        mkdir -p /data/www/meta
+        mkdir -p /data/www/sessions
+        mkdir -p /data/www/views
+        chmod -R 777 /data/www
     fi
     
     msg_done
