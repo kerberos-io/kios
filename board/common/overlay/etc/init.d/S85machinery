@@ -12,9 +12,21 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p /data/machinery/capture
 fi
 
+watch() {
+    while true; do
+        sleep 3
+        pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
+        if [ "$pid" = "" ]; then
+                echo "Restarting kerberos.io machinery"
+                kerberosio $conf &
+        fi
+    done
+}
+
 start() {
     echo  "Starting kerberos.io machinery"
     kerberosio $conf &
+    watch &
 }
 
 stop() {
