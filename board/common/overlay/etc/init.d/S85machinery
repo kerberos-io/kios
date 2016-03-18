@@ -15,11 +15,18 @@ fi
 watch() {
     while true; do
         sleep 3
+        
         pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
                 echo "Restarting kerberos.io machinery"
                 kerberosio $conf &
         fi
+        
+        if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
+        then
+                echo "Cleaning disk"
+                find /data/media/ -type f -name '*' -print0 | head -n 100 | xargs -0 rm;
+        fi;
     done
 }
 
