@@ -15,11 +15,12 @@ index b1832f3..a5e8dfe 100644
 @@ -35,7 +35,7 @@ return array(
      
      'version' => '2.0.0',
-        
--       'config' => '/etc/opt/kerberosio/config',
-+       'config' => '/data/etc/opt/kerberosio/config',
+ 	
+-	'config' => '/etc/opt/kerberosio/config',
++	'config' => '/data/etc/opt/kerberosio/config',
  
-        'filesystem' => [
+ 	'filesystem' => [
  
 -- 
 1.9.1
+
