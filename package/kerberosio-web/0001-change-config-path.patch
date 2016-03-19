@@ -17,7 +17,7 @@ index b1832f3..a5e8dfe 100644
      'version' => '2.0.0',
  	
 -	'config' => '/etc/opt/kerberosio/config',
-+	'config' => '/data/etc/opt/kerberosio/config',
++	'config' => '/data/machinery/config',
  
  	'filesystem' => [
  
