@@ -6,6 +6,8 @@ conf="/data/machinery/config/config.xml"
 if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p /data/machinery/config
     cp -R /etc/opt/kerberosio/config/* /data/machinery/config/
+    rm -rf /etc/opt/kerberosio/config/
+    ln -s /etc/opt/kerberosio/config /data/machinery/config/
     chmod -R 777 /data/machinery/config/
     mkdir -p /data/machinery/symbols
     mkdir -p /data/machinery/logs
