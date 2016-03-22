@@ -21,8 +21,8 @@ watch() {
         
         pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
-                echo "Restarting kerberos.io machinery"
-                kerberosio $conf &
+                echo "Starting kerberos.io machinery"
+                kerberosio --config $conf &
         fi
         
         if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
@@ -35,7 +35,6 @@ watch() {
 
 start() {
     echo  "Starting kerberos.io machinery"
-    kerberosio $conf &
     watch &
 }
 
