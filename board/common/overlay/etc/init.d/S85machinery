@@ -17,7 +17,7 @@ fi
 
 watch() {
     while true; do
-        sleep 3
+        sleep 10
         
         pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
