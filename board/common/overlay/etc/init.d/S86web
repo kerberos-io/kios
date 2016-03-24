@@ -14,6 +14,9 @@ start() {
         mkdir -p /data/www/views
         chmod -R 777 /data/www
     fi
+    
+    mkdir -p /data/.firmware_update
+    chmod -R 777 /data/.firmware_update
 }
 
 stop() {
