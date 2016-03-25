@@ -283,7 +283,7 @@ PHP_DEPENDENCIES += jpeg libpng freetype
 endif
 
 define PHP_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 0755 $(@D)/sapi/fpm/init.d.php-fpm \
+	$(INSTALL) -D -m 0755 package/php/init.d.php-fpm \
 		$(TARGET_DIR)/etc/init.d/S49php-fpm
 endef
 

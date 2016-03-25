@@ -12,7 +12,7 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p /data/machinery/capture
     chmod -R 777 /data/machinery/capture
     mkdir -p /data/tmp
-    chmod -R 777 /data/machinery/tmp
+    chmod -R 777 /data/tmp
 fi
 
 watch() {
