@@ -13,6 +13,7 @@ start() {
         mkdir -p /data/www/sessions
         mkdir -p /data/www/views
         chmod -R 777 /data/www
+        echo 'extension=memcached.so' >> /etc/php.ini
     fi
 }
 
