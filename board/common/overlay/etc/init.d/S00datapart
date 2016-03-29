@@ -32,8 +32,13 @@ case "$1" in
         mkdir /data/log
         mkdir -m 775 /data/output
         mkdir -m 775 /data/media
+        mkdir -m 777 /data/.firmware_update
+        mkdir -m 777 /data/tmp
         cp /etc/version /data/etc/version
         ln -s /usr/share/zoneinfo/UTC /data/etc/localtime
+        cp /etc/fstab /data/etc/fstab
+        rm /etc/fstab
+        ln -s /data/etc/fstab /etc/fstab
         touch /data/etc/adjtime
         msg_done
 
