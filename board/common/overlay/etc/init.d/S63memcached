@@ -5,7 +5,7 @@ start() {
 }
 
 stop() {
-
+    killall memcached &>/dev/null
 }
 
 case "$1" in

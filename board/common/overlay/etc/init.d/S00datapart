@@ -37,6 +37,7 @@ case "$1" in
         cp /etc/version /data/etc/version
         ln -s /usr/share/zoneinfo/UTC /data/etc/localtime
         cp /etc/fstab /data/etc/fstab
+        chmod 777 /data/etc/fstab
         rm /etc/fstab
         ln -s /data/etc/fstab /etc/fstab
         touch /data/etc/adjtime
