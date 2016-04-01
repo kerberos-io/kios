@@ -25,6 +25,11 @@ KERBEROSIO_MACHINERY_PRE_INSTALL_TARGET_HOOKS += KERBEROSIO_MACHINERY_REMOVE_INS
 
 define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
 
+    #create .deb package
+    (cd $(@D); \
+        $(HOST_DIR)/usr/bin/cpack; \
+    )
+    
 	# Link directories to data folder
 	rm -rf $(TARGET_DIR)/etc/opt/kerberosio/capture
 	ln -s /data/machinery/capture $(TARGET_DIR)/etc/opt/kerberosio/capture 
