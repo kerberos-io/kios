@@ -27,7 +27,7 @@ define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
 
     #create .deb package
     (cd $(@D); \
-        $(HOST_DIR)/usr/bin/cpack; \
+        $(HOST_DIR)/usr/bin/cpack --config ../../../CPackConfig.cmake ; \
     )
     
 	# Link directories to data folder
