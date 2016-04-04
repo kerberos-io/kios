@@ -27,9 +27,9 @@ define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
 
     #create .deb package
     (cd $(@D); \
-        $(HOST_DIR)/usr/bin/cpack --config ../../../CPackConfig.cmake ; \
+        $(HOST_DIR)/usr/bin/cpack --config ../../../../package/kerberosio-machinery/CPackConfig.cmake -D CPACK_INSTALL_CMAKE_PROJECTS="$(@D);kerberosio;ALL;/"; \
     )
-    
+
 	# Link directories to data folder
 	rm -rf $(TARGET_DIR)/etc/opt/kerberosio/capture
 	ln -s /data/machinery/capture $(TARGET_DIR)/etc/opt/kerberosio/capture 
