@@ -5,7 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)";
 echo "Compiling Kerberos.io for each board"
 
 rm -rf $DIR/kios-*
-rm -rf $DIR/.downloads/kerberosio-*
+rm -rf $DIR/.download/kerberosio-*
 rm -rf $DIR/output/raspberrypi/build/kerberosio-*
 rm -rf $DIR/output/raspberrypi2/build/kerberosio-*
 rm -rf $DIR/output/raspberrypi3/build/kerberosio-*
