@@ -8,7 +8,7 @@ Below you can find an installation script for CentOS 7. When the compilation is 
 
     # Install dependencies
     
-    yum install -y git hg bc perl-devel 
+    yum install -y git hg bc perl-devel dosfstools
     curl --silent --location https://rpm.nodesource.com/setup_5.x | bash -
     yum install -y php  php-xml php-gd php-curl nodejs
     yum -y install epel-release && yum -y install php-mcrypt php-pdo
