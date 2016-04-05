@@ -38,6 +38,7 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     rm -rf $(TARGET_DIR)/var/www/web
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
+    rm -rf $(TARGET_DIR)/var/www/web/app/storage
     ln -s /data/www/ $(TARGET_DIR)/var/www/web/app/storage
     
     # enable memcached
