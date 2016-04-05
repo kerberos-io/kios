@@ -10,3 +10,4 @@ git clone https://github.com/kerberos-io/kios
 cd kios
 git checkout develop
 ./build.sh all
+./build.sh all mkrelease
