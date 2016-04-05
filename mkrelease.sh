@@ -10,8 +10,8 @@ rm -rf $DIR/output/raspberrypi/build/kerberosio-*
 rm -rf $DIR/output/raspberrypi2/build/kerberosio-*
 rm -rf $DIR/output/raspberrypi3/build/kerberosio-*
 
-$DIR/build.sh raspberrypi # should be all..
-$DIR/build.sh raspberrypi mkrelease
+$DIR/build.sh all # should be all..
+$DIR/build.sh all mkrelease
 
 echo "Creating Kerberos.io releases per board"
 
