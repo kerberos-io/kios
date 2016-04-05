@@ -6,7 +6,7 @@ A Linux OS created by Buildroot which runs Kerberos.io out-of-the-box. This repo
 
 Below you can find an installation script for CentOS 7. When the compilation is done, three different images will be available in the current working directory.
 
-    #Install dependencies
+    # Install dependencies
     
     yum install -y git hg bc perl-devel 
     curl --silent --location https://rpm.nodesource.com/setup_5.x | bash -
