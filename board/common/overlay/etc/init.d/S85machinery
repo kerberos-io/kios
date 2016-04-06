@@ -8,7 +8,9 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     cp -R /etc/opt/kerberosio/config/* /data/machinery/config/
     chmod -R 777 /data/machinery/config/
     mkdir -p /data/machinery/symbols
+    chmod -R 777 /data/machinery/symbols
     mkdir -p /data/machinery/logs
+    chmod -R 777 /data/machinery/logs
     mkdir -p /data/machinery/capture
     chmod -R 777 /data/machinery/capture
 fi
