@@ -10,6 +10,7 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p /data/machinery/symbols
     chmod -R 777 /data/machinery/symbols
     mkdir -p /data/machinery/logs
+    touch /data/machinery/logs/log.stash
     chmod -R 777 /data/machinery/logs
     mkdir -p /data/machinery/capture
     chmod -R 777 /data/machinery/capture
