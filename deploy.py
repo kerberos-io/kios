@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 import sys, requests, json, time, subprocess,os
 
+# set env variables (for testing purposes, it's better to put it in ENV)
+os.environ['kerberosio_token'] = '...'
+os.environ['kerberosio_server_name'] = 'example.com'
+os.environ['kerberosio_ssh_key'] = '...'
+os.environ['kerberosio_image_id'] = '16641334'
+os.environ['kerberosio_kios_dir'] = '/root/kios/'
+os.environ['kerberosio_release_dir'] = '/Users/cedricverst/Desktop/'
+
 #e.g. token = "cdae884ef42585ca35e797bc0a9730ff9c5f94f1c59f15f7c4fcb9722bd17261"
 token = os.getenv('kerberosio_token')
 if token == None:
@@ -30,14 +38,11 @@ if kios_dir == None:
 release_dir = os.getenv('kerberosio_release_dir')
 if release_dir == None:
     sys.exit("No directory set, please add the token to your env 'kerberosio_release_dir'.")
-    
-    
-# Authorization header    
-authorization = {"Authorization":"Bearer " + token}
 
-# Creating a droplet (base on a image/snapshot
-print "Creating droplet for Kerberos.io"
+authorization = {"Authorization":"Bearer " + token}
 payload = {"name":server_name,"region":"nyc3","size":"8gb","image":image_id,"ssh_keys":[ssh_key],"backups":"false","ipv6":"true","user_data":"null","private_networking":"null"}
+
+print "Creating droplet for Kerberos.io"
 response = requests.post('https://api.digitalocean.com/v2/droplets', headers=authorization, json=payload)
 result = json.loads(response.text)#
 action = result["links"]["actions"][0]["href"]
@@ -60,11 +65,11 @@ print "Droplet created with ID:", droplet_id, "and IP-address:", ip_address
 
 # Create new release
 print "Creating releases"
-subprocess.check_call(['ssh', '-oStrictHostKeyChecking=no', 'root@'+ip_address, 'cd ' + kios_dir + ' && git pull && ./mkrelease.sh'])
+subprocess.check_call(['ssh', 'root@'+ip_address, 'cd ' + kios_dir + ' && git pull && ./mkrelease.sh'])
 
 # Copy release to local station
 print "Transferring releases"
-subprocess.check_call(['sudo', 'rsync', '-xav', 'root@' + ip_address + ':\'' + kios_dir + 'releases/*\'', release_dir])
+subprocess.check_call(["rsync", "-xav", "root@" + ip_address + ":'" + kios_dir + "releases/'", release_dir])
 
 # Remove droplet again
 response = requests.delete('https://api.digitalocean.com/v2/droplets/' + `droplet_id`, headers=authorization)
