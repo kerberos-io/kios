@@ -27,8 +27,8 @@ ln -s /data/log $TARGET/var/log
 ln -s /tmp $TARGET/var/run
 ln -s /tmp $TARGET/var/spool
 ln -s /tmp $TARGET/var/tmp
-rm $TARGET/etc/fstab
-ln -s /data/etc/fstab $TARGET/etc/fstab
+#rm $TARGET/etc/fstab
+#ln -s /data/etc/fstab $TARGET/etc/fstab
 
 $COMMON_DIR/cleanups.sh
 test -x $BOARD_DIR/cleanups.sh && test -x $BOARD_DIR/cleanups.sh || true
