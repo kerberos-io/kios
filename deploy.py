@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 import sys, requests, json, time, subprocess,os
 
-# set env variables (for testing purposes, it's better to put it in ENV)
-os.environ['kerberosio_token'] = '...'
-os.environ['kerberosio_server_name'] = 'example.com'
-os.environ['kerberosio_ssh_key'] = '...'
-os.environ['kerberosio_image_id'] = '16641334'
-os.environ['kerberosio_kios_dir'] = '/root/kios/'
-os.environ['kerberosio_release_dir'] = '/Users/cedricverst/Desktop/'
-
 #e.g. token = "cdae884ef42585ca35e797bc0a9730ff9c5f94f1c59f15f7c4fcb9722bd17261"
 token = os.getenv('kerberosio_token')
 if token == None:
@@ -40,7 +32,7 @@ if release_dir == None:
     sys.exit("No directory set, please add the token to your env 'kerberosio_release_dir'.")
 
 authorization = {"Authorization":"Bearer " + token}
-payload = {"name":server_name,"region":"nyc3","size":"8gb","image":image_id,"ssh_keys":[ssh_key],"backups":"false","ipv6":"true","user_data":"null","private_networking":"null"}
+payload = {"name":server_name,"region":"nyc3","size":"2gb","image":image_id,"ssh_keys":[ssh_key],"backups":"false","ipv6":"false","user_data":"null","private_networking":"null"}
 
 print "Creating droplet for Kerberos.io"
 response = requests.post('https://api.digitalocean.com/v2/droplets', headers=authorization, json=payload)
@@ -62,6 +54,11 @@ response = requests.get("https://api.digitalocean.com/v2/droplets/" + `droplet_i
 droplet = json.loads(response.text)
 ip_address = droplet["droplet"]["networks"]["v4"][0]["ip_address"]
 print "Droplet created with ID:", droplet_id, "and IP-address:", ip_address
+time.sleep(15)
+
+# Removing existing releases
+print "Removing existing releases"
+subprocess.check_call(['ssh', 'root@'+ip_address, 'cd ' + kios_dir + ' && rm -rf releases/*'])
 
 # Create new release
 print "Creating releases"

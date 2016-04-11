@@ -39,6 +39,7 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
     sed -i "s#__DIR__.'/../app'#'/data/www/web'#g" $(TARGET_DIR)/var/www/web/bootstrap/paths.php 
+    sed -i "s#__DIR__.'/../app/storage'#'/data/www/web/storage'#g" $(TARGET_DIR)/var/www/web/bootstrap/paths.php
     
     # enable memcached
     cat $(TARGET_DIR)/etc/php.ini | grep -q extension=memcached.so || echo "extension=memcached.so" >> $(TARGET_DIR)/etc/php.ini
