@@ -8,7 +8,7 @@ start() {
     
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
         mkdir -p /data/web
-        cp -R /var/www/web/app/* /data/web
+        cp -R /var/www/web/app/* /data/web/
         chmod -R 777 /data/web
         echo 'extension=memcached.so' >> /etc/php.ini
     fi
