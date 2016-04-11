@@ -7,9 +7,11 @@ start() {
     echo "Configuring kerberos.io web"
     
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
-        mkdir -p /data/web
-        cp -R /var/www/web/app/* /data/web/
-        chmod -R 777 /data/web
+        mkdir -p /data/web/app
+        cp -R /var/www/web/app/storage /data/web/app
+        cp -R /var/www/web/app/config /data/web/app
+        sed -i "s#__DIR__.'/../views'#'/var/www/web/app/views'#g" /data/web/app/config/view.php
+        chmod -R 777 /data/web/app
         echo 'extension=memcached.so' >> /etc/php.ini
     fi
 }
