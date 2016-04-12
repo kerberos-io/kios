@@ -38,7 +38,7 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     rm -rf $(TARGET_DIR)/var/www/web
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
-    sed -i "s#\$this['path'] . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/bootstrap/compiled.php 
+    sed -i "s#\$this\['path'\] . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/bootstrap/compiled.php 
     sed -i "s#__DIR__.'/../app/storage'#'/data/web/app/storage'#g" $(TARGET_DIR)/var/www/web/bootstrap/paths.php
     
     # enable memcached
