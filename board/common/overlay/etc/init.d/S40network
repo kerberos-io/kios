@@ -37,7 +37,6 @@ watch_eth() {
                 logger -t ethernet -s "disconnected"
             else
                 logger -t ethernet -s "disconnected for $link_watch_timeout seconds, rebooting"
-                reboot
             fi
         fi
     done
@@ -56,7 +55,6 @@ watch_ip() {
                 logger -t network -s "$iface has no IP address"
             else
                 logger -t network -s "$iface had no IP address for $ip_watch_timeout seconds, rebooting"
-                reboot
             fi
         fi
     done
