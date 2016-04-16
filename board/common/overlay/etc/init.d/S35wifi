@@ -47,7 +47,6 @@ watch() {
                 logger -t wifi -s "disconnected"
             else
                 logger -t wifi -s "disconnected for $link_watch_timeout seconds, rebooting"
-                reboot
             fi
         fi
     done
@@ -79,7 +78,6 @@ start() {
 
         if [ $count -gt $link_watch_timeout ] || ! pidof wpa_supplicant > /dev/null; then
             msg_fail
-            reboot
             return 1
         fi
 
