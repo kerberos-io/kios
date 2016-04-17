@@ -3,12 +3,12 @@
 mkdir -p /var/lib/dhcp
 dh_conf="/var/cache/dhclient.conf"
 sys_static_conf="/etc/static_ip.conf"
-static_conf="/etc/static_ip.conf"
-watch_conf="/etc/watch.conf"
+static_conf="/data/etc/static_ip.conf"
+watch_conf="/data/etc/watch.conf"
 
-link_watch=yes
+link_watch=no
 link_watch_timeout=20
-ip_watch=yes
+ip_watch=no
 ip_watch_timeout=40
 
 link_nego_timeout=10
@@ -37,6 +37,7 @@ watch_eth() {
                 logger -t ethernet -s "disconnected"
             else
                 logger -t ethernet -s "disconnected for $link_watch_timeout seconds, rebooting"
+                reboot
             fi
         fi
     done
@@ -55,6 +56,7 @@ watch_ip() {
                 logger -t network -s "$iface has no IP address"
             else
                 logger -t network -s "$iface had no IP address for $ip_watch_timeout seconds, rebooting"
+                reboot
             fi
         fi
     done
@@ -100,7 +102,7 @@ start_eth() {
         count=$(($count + 1))
         if [ $count -ge 3 ]; then
             msg_done "no device"
-            return
+            return 1
         fi
     done
 
@@ -114,7 +116,7 @@ start_eth() {
         count=$(($count + 1))
         if [ $count -ge 3 ]; then
             msg_done "no link"
-            return
+            return 1
         fi
     done
 
@@ -125,7 +127,7 @@ start_eth() {
         count=$(($count + 1))
         if [ $count -ge $link_nego_timeout ]; then
             msg_done "no link"
-            return
+            return 1
         fi
     done
 
@@ -151,17 +153,24 @@ start() {
     hostname=$(hostname)
     echo "send host-name = \"$hostname\";" > /var/cache/dhclient.conf
 
-    ssid=$(cat /etc/wpa_supplicant.conf 2>&1 | grep ssid | grep -v scan_ssid | cut -d '"' -f 2)
+    ssid=$(cat /data/etc/wpa_supplicant.conf 2>&1 | grep ssid | grep -v scan_ssid | cut -d '"' -f 2)
 
     start_lo
 
-    test -n "$ssid" && start_wlan
+    test -n "$ssid" && start_wlan && wlan_ok="ok"
     
-    # if wifi or ppp connection configured, start eth in background
-    if [ -n "$ssid" ] || [ -r /data/etc/ppp/modem ]; then
+    test -r /data/etc/ppp/modem && ppp_ok="ok" # TODO actually test the ppp link
+    
+    # if wifi or ppp link ok, start eth in background
+    if [ "$wlan_ok" == "ok" ] || [ "$ppp_ok" == "ok" ]; then
         start_eth &>/dev/null &
     else
-        start_eth
+        start_eth && eth_ok="ok"
+    fi
+    
+    if [ "$eth_ok" != "ok" ] && [ "$wlan_ok" != "ok" ] && [ "$ppp_ok" != "ok" ]; then
+        reboot
+        return 1
     fi
 
     if [ -n "$static_gw" ]; then

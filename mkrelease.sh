@@ -7,11 +7,8 @@ echo "Compiling Kerberos.io for each board"
 rm -rf $DIR/kios-*
 rm -rf $DIR/.download/kerberosio-*
 rm -rf $DIR/output/raspberrypi/build/kerberosio-*
-rm -rf $DIR/output/raspberrypi/target/etc/init.d/S41netwatch
 rm -rf $DIR/output/raspberrypi2/build/kerberosio-*
-rm -rf $DIR/output/raspberrypi2/target/etc/init.d/S41netwatch
 rm -rf $DIR/output/raspberrypi3/build/kerberosio-*
-rm -rf $DIR/output/raspberrypi3/target/etc/init.d/S41netwatch
 
 $DIR/build.sh all # should be all..
 $DIR/build.sh all mkrelease
