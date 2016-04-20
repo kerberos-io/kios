@@ -4,7 +4,7 @@
 #
 #############################################################
 
-KERBEROSIO_MACHINERY_VERSION = develop
+KERBEROSIO_MACHINERY_VERSION = bfb8ae97a7390d1072292812a9b9028c8f202e67
 KERBEROSIO_MACHINERY_SITE = https://github.com/kerberos-io/machinery
 KERBEROSIO_MACHINERY_SITE_METHOD = git
 KERBEROSIO_MACHINERY_INSTALL_TARGET = YES
