@@ -1,8 +1,13 @@
-# KiOS
 
+#KERBEROS.IO
+[![Join the chat at https://gitter.im/kerberos-io/hades](https://img.shields.io/badge/GITTER-join chat-green.svg)](https://gitter.im/kerberos-io/hades?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Kerberos.io - video surveillance](https://kerberos.io/images/kerberos.png)](https://kerberos.io)
+
+## What is KiOS?
 A Linux OS created by Buildroot which runs Kerberos.io out-of-the-box. This repository cross-compiles for the Raspberry Pi 1, 2 and 3. Below you can find an installation script for Ubuntu 14 and CentOS 7. When the compilation is done, three different images will be available in the current working directory.
 
-## Install on Ubuntu 14
+### How to install on Ubuntu 14
 
     # Install dependencies
     
@@ -24,7 +29,7 @@ A Linux OS created by Buildroot which runs Kerberos.io out-of-the-box. This repo
     ./build.sh all
     ./build.sh all mkrelease
 
-## Install on CentOS 7
+### How to install on CentOS 7
 
     # Install dependencies
     
