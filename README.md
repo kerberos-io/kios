@@ -53,3 +53,14 @@ Please go to our [documentation website](https://doc.kerberos.io/2.0/installatio
     
     ./build.sh all
     ./build.sh all mkrelease
+
+##How to build KiOS on DigitalOcean
+If you don't want to build KiOS on your local workingstation but you prefer to build it on a VM at DigitalOcean you're at the right place. You will find a script at the root of the KiOS repository named `deploy.py`.
+
+The python script will need some environment variables and use the DigitalOcean API to create a VM, build KiOS, transfer the images to your local workingstation and destory the VM again.
+
+### Environment variables
+You'll need to define severable variables
+
+
+After you've defined the environment variables you can simply run the script and you will have some freshly build KiOs images. Hurray!
