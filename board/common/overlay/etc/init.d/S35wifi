@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sys_conf="/etc/wpa_supplicant.conf"
-conf="/data/etc/wpa_supplicant.conf"
+conf="/etc/wpa_supplicant.conf"
 
 log="/var/log/wpa_supplicant.log"
 prog="/usr/sbin/wpa_supplicant"
@@ -9,7 +9,7 @@ iface=wlan0
 driver=wext
 
 sys_watch_conf="/etc/watch.conf"
-watch_conf="/data/etc/watch.conf"
+watch_conf="/etc/watch.conf"
 
 link_watch=no
 link_watch_timeout=20
