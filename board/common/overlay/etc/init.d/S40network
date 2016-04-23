@@ -168,10 +168,10 @@ start() {
         start_eth && eth_ok="ok"
     fi
     
-    if [ "$eth_ok" != "ok" ] && [ "$wlan_ok" != "ok" ] && [ "$ppp_ok" != "ok" ]; then
-        reboot
-        return 1
-    fi
+    #if [ "$eth_ok" != "ok" ] && [ "$wlan_ok" != "ok" ] && [ "$ppp_ok" != "ok" ]; then
+    #    reboot
+    #    return 1
+    #fi
 
     if [ -n "$static_gw" ]; then
         msg_begin "Setting static gateway to $static_gw"
