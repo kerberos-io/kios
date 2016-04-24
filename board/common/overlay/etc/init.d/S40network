@@ -153,7 +153,7 @@ start() {
     hostname=$(hostname)
     echo "send host-name = \"$hostname\";" > /var/cache/dhclient.conf
 
-    ssid=$(cat /data/etc/wpa_supplicant.conf 2>&1 | grep ssid | grep -v scan_ssid | cut -d '"' -f 2)
+    ssid=$(cat /etc/wpa_supplicant.conf 2>&1 | grep ssid | grep -v scan_ssid | cut -d '"' -f 2)
 
     start_lo
 
@@ -168,10 +168,10 @@ start() {
         start_eth && eth_ok="ok"
     fi
     
-    if [ "$eth_ok" != "ok" ] && [ "$wlan_ok" != "ok" ] && [ "$ppp_ok" != "ok" ]; then
-        reboot
-        return 1
-    fi
+    #if [ "$eth_ok" != "ok" ] && [ "$wlan_ok" != "ok" ] && [ "$ppp_ok" != "ok" ]; then
+    #    reboot
+    #    return 1
+    #fi
 
     if [ -n "$static_gw" ]; then
         msg_begin "Setting static gateway to $static_gw"
