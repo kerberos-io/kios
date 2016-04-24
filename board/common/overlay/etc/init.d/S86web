@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sys_conf="/var/www/web"
-conf="/data/web/"
+conf="/data/web/app"
 
 start() {
     echo "Configuring kerberos.io web"
