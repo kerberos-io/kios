@@ -7,4 +7,3 @@
 /bin/mount -a -t devpts
 /bin/mount -a -t tmpfs
 /bin/mount -a -t sysfs
-

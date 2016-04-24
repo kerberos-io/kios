@@ -3,4 +3,3 @@
 if [ -f /data/etc/kios.conf ]; then
     cat /data/etc/kios.conf | grep password | cut -d '=' -f 2-
 fi
-

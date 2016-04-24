@@ -15,4 +15,3 @@ msg_done() {
 msg_fail() {
     test -n "$1" && echo $1 || echo "failed"
 }
-
