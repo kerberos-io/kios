@@ -31,6 +31,8 @@ case "$1" in
         mkdir /data/etc
         mkdir /data/log
         mkdir -m 775 /data/output
+        mkdir -m 777 /data/web
+        mkdir -m 777 /data/machinery
         mkdir -m 775 /data/media
         mkdir -m 777 /data/.firmware_update
         mkdir -m 777 /data/tmp

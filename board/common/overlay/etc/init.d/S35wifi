@@ -123,4 +123,3 @@ esac
 # continue after an unsuccessfull wifi start
 # as we may still have an ethernet connection available
 exit 0
-

@@ -22,4 +22,3 @@ while kill -0 $pid 2>/dev/null; do
 done
 
 test -d $(dirname $boot_log) && cat $tmp_boot_log >> $boot_log
-

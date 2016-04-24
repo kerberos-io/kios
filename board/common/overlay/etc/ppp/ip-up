@@ -9,4 +9,3 @@ fi
 if [ -n "$DNS2" ]; then
     echo "nameserver $DNS2" >> $resolv_conf
 fi
-
