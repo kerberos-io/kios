@@ -41,6 +41,7 @@ case "$1" in
         cp /etc/fstab-data /data/etc/fstab
         chmod 777 /data/etc/fstab
         touch /data/etc/adjtime
+        cp /etc/kios.conf /data/etc/kios.conf
         msg_done
 
         # mount other partitions depending on data
