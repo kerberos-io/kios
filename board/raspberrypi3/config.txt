@@ -3,6 +3,5 @@ fixup_file=fixup.elf
 gpu_mem=128
 gpu_mem_256=128
 gpu_mem_512=128
-disable_camera_led=1
+disable_camera_led=0
 device_tree=bcm2710-rpi-3-b.dtb
-
