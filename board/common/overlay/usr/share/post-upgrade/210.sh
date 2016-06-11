@@ -5,13 +5,14 @@
 # Update configuration files for machinery
 #
 
-KERBEROS_CONFIG_DIR="/Users/cedricverst/Desktop/etc"
-DATA_CONFIG_DIR="/Users/cedricverst/Desktop/data"
-TEMP_CONFIG_DIR="/Users/cedricverst/Desktop/tmp"
+KERBEROS_CONFIG_DIR="/etc/opt/kerberos/config"
+DATA_CONFIG_DIR="/data/machinery/config"
+TEMP_CONFIG_DIR="/tmp/config"
 
 # Copy files to tmp folder and overwrite data config files
 
-rm -rf $TEMP_CONFIG_DIR/*
+rm -rf $TEMP_CONFIG_DIR
+mkdir -p $TEMP_CONFIG_DIR
 cp -r $DATA_CONFIG_DIR/* $TEMP_CONFIG_DIR
 cp -r $KERBEROS_CONFIG_DIR/* $DATA_CONFIG_DIR
 
