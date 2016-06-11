@@ -5,7 +5,7 @@
 # Update configuration files for machinery
 #
 
-KERBEROS_CONFIG_DIR="/etc/opt/kerberos/config"
+KERBEROS_CONFIG_DIR="/etc/opt/kerberosio/config"
 DATA_CONFIG_DIR="/data/machinery/config"
 TEMP_CONFIG_DIR="/tmp/config"
 
@@ -56,3 +56,5 @@ do
 		fi
 	done
 done
+
+chmod -R 777 $DATA_CONFIG_DIR
