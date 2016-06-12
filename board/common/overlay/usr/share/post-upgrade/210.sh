@@ -58,3 +58,11 @@ do
 done
 
 chmod -R 777 $DATA_CONFIG_DIR
+
+##########################################
+#
+# Update configuration files for web
+#
+
+cp /var/www/web/app/config/app.php /data/web/app/config/app.php
+chmod 777 /data/web/app/config/app.php
