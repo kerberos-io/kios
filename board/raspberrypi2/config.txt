@@ -1,1 +1,2 @@
 gpu_mem=128
+disable_camera_led=1
