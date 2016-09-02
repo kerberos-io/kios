@@ -18,7 +18,7 @@ Please go to our [documentation website](https://doc.kerberos.io/2.0/installatio
     apt-get install -y git build-essential unzip mercurial php5 php5-gd mcrypt php5-mcrypt php5-curl
     php5enmod mcrypt
     curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-    apt-get install -y nodejs npm
+    apt-get install -y nodejs npm nodejs-legacy
     npm install -g bower
     
     # Cloning the source code
