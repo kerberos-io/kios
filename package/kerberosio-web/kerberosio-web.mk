@@ -4,7 +4,7 @@
 #
 #############################################################
 
-KERBEROSIO_WEB_VERSION = master
+KERBEROSIO_WEB_VERSION = develop
 KERBEROSIO_WEB_SITE = https://github.com/kerberos-io/web
 KERBEROSIO_WEB_SITE_METHOD = git
 KERBEROSIO_WEB_INSTALL_TARGET = YES

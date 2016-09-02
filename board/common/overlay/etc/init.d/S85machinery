@@ -29,7 +29,7 @@ watch() {
         if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
         then
                 echo "Cleaning disk"
-                find /data/media/ -type f -name '*' -print0 | head -n 100 | xargs -0 rm;
+                find /data/machinery/capture/ -type f -name '*' -print0 | head -n 100 | xargs -0 rm;
         fi;
     done
 }
