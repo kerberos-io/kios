@@ -33,7 +33,7 @@ ROOT=$IMG_DIR/.root
 ROOT_IMG=$IMG_DIR/root.img
 ROOT_SIZE="275" # MB
 
-DISK_SIZE="325" # MB
+DISK_SIZE="300" # MB
 
 # boot filesystem
 msg "creating boot loop device"
