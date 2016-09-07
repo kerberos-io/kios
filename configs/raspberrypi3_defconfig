@@ -1,5 +1,6 @@
 BR2_arm=y
-BR2_arm1176jzf_s=y
+BR2_cortex_a7=y
+BR2_ARM_FPU_NEON_VFPV4=y
 BR2_ARM_EABIHF=y
 BR2_USE_MMU=y
 BR2_DL_DIR="$(TOPDIR)/.download"
