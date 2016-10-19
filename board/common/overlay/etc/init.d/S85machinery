@@ -23,6 +23,7 @@ watch() {
         pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
                 echo "Starting kerberos.io machinery"
+                ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
                 kerberosio --config $conf &
         fi
         
