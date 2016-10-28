@@ -18,12 +18,13 @@ fi
 
 watch() {
     while true; do
-        sleep 10
+        sleep 3
         
-        pid=$(ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1)
+        pid=$(pgrep -l kerberosio | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
                 echo "Starting kerberos.io machinery"
-                ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
+                sleep 1
+                pkill -f kerberosio
                 kerberosio --config $conf &
         fi
         
