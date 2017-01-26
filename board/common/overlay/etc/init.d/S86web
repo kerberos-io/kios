@@ -12,7 +12,6 @@ start() {
         cp -R /var/www/web/app/config /data/web/app
         sed -i "s#__DIR__.'/../views'#'/var/www/web/app/views'#g" /data/web/app/config/view.php
         chmod -R 777 /data/web/app
-        echo 'extension=memcached.so' >> /etc/php.ini
     fi
 }
 
