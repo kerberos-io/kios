@@ -39,7 +39,7 @@ index a8f97c9..d5df06b 100644
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
 -    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-+    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake -DBUILD_WITH_CAROTENE=OFF
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
 +
  )
