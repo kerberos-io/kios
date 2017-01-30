@@ -1,15 +1,14 @@
-From 5e710740af97636562d3a2d398b45c441974d2a4 Mon Sep 17 00:00:00 2001
-From: root <root@buildroot.cedricverstraeten.be>
-Date: Thu, 10 Mar 2016 13:13:56 -0500
-Subject: [PATCH 1/1] add arm support to cmake - external projects
+From 079fe3c129bafccfe6a31508ea626b8c7aad7586 Mon Sep 17 00:00:00 2001
+From: cedricve <cedric@verstraeten.io>
+Date: Mon, 30 Jan 2017 19:34:16 +0100
+Subject: [PATCH] add arm support to cmake - external projects
 
-Signed-off-by: root <root@buildroot.cedricverstraeten.be>
 ---
  cmake/External-Googletest.cmake |  3 ++-
- cmake/External-OpenCV.cmake     | 14 ++++++++------
+ cmake/External-OpenCV.cmake     | 13 +++++++------
  cmake/External-RaspiCam.cmake   |  3 ++-
  cmake/External-Restclient.cmake |  4 ++--
- 4 files changed, 14 insertions(+), 10 deletions(-)
+ 4 files changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index 926e637..c0fb3ed 100644
@@ -31,17 +30,16 @@ index 926e637..c0fb3ed 100644
 \ No newline at end of file
 +set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
-index a8f97c9..d5df06b 100644
+index 1a1c739..c155349 100644
 --- a/cmake/External-OpenCV.cmake
 +++ b/cmake/External-OpenCV.cmake
-@@ -44,12 +44,14 @@ ExternalProject_Add(opencv
-     -DWITH_IPP:BOOL=OFF
+@@ -48,12 +48,13 @@ ExternalProject_Add(opencv
+     -DBUILD_ZLIB:BOOL=ON
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
 -    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
-+
  )
  
 -set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
@@ -52,7 +50,7 @@ index a8f97c9..d5df06b 100644
  else()
    set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/x86/vc12/lib)
  endif()
-@@ -59,9 +61,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_videoio op
+@@ -63,9 +64,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video open
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
  
@@ -106,5 +104,5 @@ index 34eb211..b192d58 100644
 \ No newline at end of file
 +link_directories(${RESTCLIENT_LIBRARY_DIR})
 -- 
-1.9.1
+2.5.0
 
