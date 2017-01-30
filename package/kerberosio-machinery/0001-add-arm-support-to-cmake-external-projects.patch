@@ -34,7 +34,7 @@ diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index a8f97c9..d5df06b 100644
 --- a/cmake/External-OpenCV.cmake
 +++ b/cmake/External-OpenCV.cmake
-@@ -43,12 +43,14 @@ ExternalProject_Add(opencv
+@@ -44,12 +44,14 @@ ExternalProject_Add(opencv
      -DWITH_IPP:BOOL=OFF
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
@@ -52,7 +52,7 @@ index a8f97c9..d5df06b 100644
  else()
    set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/x86/vc12/lib)
  endif()
-@@ -58,9 +60,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_videoio op
+@@ -59,9 +61,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_videoio op
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
  
