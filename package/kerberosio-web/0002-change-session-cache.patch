@@ -16,7 +16,7 @@ index 4cf30f6..908064e 100755
  	|
  	*/
  
--	'driver' => 'file',
+-	'driver' => 'lockfile',
 +	'driver' => 'memcached',
  
  	/*
