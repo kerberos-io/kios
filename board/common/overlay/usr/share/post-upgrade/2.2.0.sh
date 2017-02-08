@@ -64,6 +64,7 @@ chmod -R 777 $DATA_CONFIG_DIR
 # Update configuration files for web
 #
 
+cp /var/www/web/app/config/session.php /data/web/app/config/session.php
 cp /var/www/web/app/config/app.php /data/web/app/config/app.php
 chmod 777 /data/web/app/config/app.php
 cp /var/www/web/app/config/kerberos.php /data/web/app/config/kerberos.php
