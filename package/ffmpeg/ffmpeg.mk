@@ -8,6 +8,7 @@ FFMPEG_VERSION = 2.7.2
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.bz2
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
+FFMPEG_INSTALL_TARGET = NO
 
 FFMPEG_LICENSE = LGPLv2.1+, libjpeg license
 FFMPEG_LICENSE_FILES = LICENSE.md COPYING.LGPLv2.1
@@ -18,6 +19,8 @@ endif
 
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
+	--enable-static \
+	--disable-shared \
 	--enable-avfilter \
 	--disable-version3 \
 	--enable-logging \
