@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-X264_VERSION = stable
+X264_VERSION = 97eaef2ab82a46d13ea5e00270712d6475fbe42b
 X264_SITE = git://git.videolan.org/x264.git
 X264_LICENSE = GPLv2+
 X264_DEPENDENCIES = host-pkgconf
@@ -13,8 +13,10 @@ X264_INSTALL_STAGING = YES
 X264_CONF_OPTS = --disable-avs
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
+# yasm needed for assembly files
 X264_DEPENDENCIES += host-yasm
-else ifeq ($(BR2_ARM_CPU_ARMV7A),y)
+X264_CONF_ENV += AS="$(HOST_DIR)/usr/bin/yasm"
+else ifeq ($(BR2_ARM_CPU_ARMV7A)$(BR2_aarch64),y)
 # We need to pass gcc as AS, because the ARM assembly files have to be
 # preprocessed
 X264_CONF_ENV += AS="$(TARGET_CC)"
@@ -23,7 +25,7 @@ X264_CONF_OPTS += --disable-asm
 endif
 
 ifeq ($(BR2_STATIC_LIBS),)
-X264_CONF_OPTS += --enable-pic
+X264_CONF_OPTS += --enable-pic --enable-shared
 endif
 
 ifeq ($(BR2_PACKAGE_X264_CLI),)
