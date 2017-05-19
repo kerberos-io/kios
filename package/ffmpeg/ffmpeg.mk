@@ -19,6 +19,8 @@ endif
 
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
+	--enable-static \
+	--disable-shared \
 	--enable-avfilter \
 	--disable-version3 \
 	--enable-logging \
