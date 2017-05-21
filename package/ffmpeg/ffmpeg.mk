@@ -1,3 +1,4 @@
+
 ################################################################################
 #
 # ffmpeg
@@ -9,6 +10,7 @@ FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
 FFMPEG_INSTALL_TARGET = NO
+FFMPEG_DEPENDENCIES = bellagio
 
 FFMPEG_LICENSE = LGPLv2.1+, libjpeg license
 FFMPEG_LICENSE_FILES = LICENSE.md COPYING.LGPLv2.1
@@ -20,7 +22,9 @@ endif
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
 	--enable-static \
-	--disable-shared \
+        --disable-shared \
+        --enable-omx \
+        --enable-omx-rpi \
 	--enable-avfilter \
 	--disable-version3 \
 	--enable-logging \
@@ -494,7 +498,6 @@ define FFMPEG_CONFIGURE_CMDS
 		--target-os="linux" \
 		--disable-stripping \
 		--pkg-config="$(PKG_CONFIG_HOST_BINARY)" \
-		$(SHARED_STATIC_LIBS_OPTS) \
 		$(FFMPEG_CONF_OPTS) \
 	)
 endef
