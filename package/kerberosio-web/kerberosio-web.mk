@@ -12,7 +12,7 @@ KERBEROSIO_WEB_DEPENDENCIES = kerberosio-machinery nginx php
 
 ##########################################################################
 #
-# The configuration requires to have PHP (+ curl and mcrypt extension) and 
+# The configuration requires to have PHP (+ curl and mcrypt extension) and
 # nodejs/bower installed on the build machine.
 #
 
@@ -24,8 +24,11 @@ define KERBEROSIO_WEB_BUILD_CMDS
         php composer.phar install; \
         cd public; \
         bower install --allow-root; \
+        npm install grunt-contrib-watch grunt-contrib-less grunt-contrib-cssmin grunt-contrib-clean; \
+				grunt cleanUpJS; \
+				rm -rf node_modules; \
     )
-endef 
+endef
 
 ##########################################################################
 #
@@ -33,7 +36,7 @@ endef
 #
 
 define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
-    
+
     rm -rf $(TARGET_DIR)/var/www/web
     mkdir -p $(TARGET_DIR)/var/www/web
     cp -R $(@D)/* $(TARGET_DIR)/var/www/web
@@ -41,10 +44,10 @@ define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
     sed -i "s#__DIR__.'/../app/storage'#'/data/web/app/storage'#g" $(TARGET_DIR)/var/www/web/bootstrap/paths.php
     sed -i "s#app_path() . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/app/controllers/UserController.php
     sed -i "s#app_path() . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/app/controllers/SettingsController.php
-    
+
     # enable memcached
     cat $(TARGET_DIR)/etc/php.ini | grep -q extension=memcached.so || echo "extension=memcached.so" >> $(TARGET_DIR)/etc/php.ini
-    
-endef 
+
+endef
 
 $(eval $(generic-package))

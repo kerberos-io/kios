@@ -32,11 +32,13 @@ define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
 
 	# Link directories to data folder
 	rm -rf $(TARGET_DIR)/etc/opt/kerberosio/capture
-	ln -s /data/machinery/capture $(TARGET_DIR)/etc/opt/kerberosio/capture 
-    rm -rf $(TARGET_DIR)/etc/opt/kerberosio/logs
-    ln -s /data/machinery/logs $(TARGET_DIR)/etc/opt/kerberosio/logs
-    rm -rf $(TARGET_DIR)/etc/opt/kerberosio/symbols
-    ln -s /data/machinery/symbols $(TARGET_DIR)/etc/opt/kerberosio/symbols
+	ln -s /data/machinery/capture $(TARGET_DIR)/etc/opt/kerberosio/capture
+  rm -rf $(TARGET_DIR)/etc/opt/kerberosio/logs
+  ln -s /data/machinery/logs $(TARGET_DIR)/etc/opt/kerberosio/logs
+  rm -rf $(TARGET_DIR)/etc/opt/kerberosio/symbols
+  ln -s /data/machinery/symbols $(TARGET_DIR)/etc/opt/kerberosio/symbols
+  rm -rf $(TARGET_DIR)/etc/opt/kerberosio/h264
+  ln -s /data/machinery/symbols $(TARGET_DIR)/etc/opt/kerberosio/h264
 
 endef
 

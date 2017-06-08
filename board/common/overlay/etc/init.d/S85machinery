@@ -14,12 +14,14 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     chmod -R 777 /data/machinery/logs
     mkdir -p /data/machinery/capture
     chmod -R 777 /data/machinery/capture
+    mkdir -p /data/machinery/h264
+    chmod -R 777 /data/machinery/h264
 fi
 
 watch() {
     while true; do
         sleep 3
-        
+
         pid=$(pgrep -l kerberosio | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
                 echo "Starting kerberos.io machinery"
@@ -27,7 +29,7 @@ watch() {
                 pkill -f kerberosio
                 kerberosio --config $conf &
         fi
-        
+
         if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
         then
                 echo "Cleaning disk"
