@@ -21,7 +21,7 @@ define KERBEROSIO_WEB_BUILD_CMDS
         php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php; \
         php composer-setup.php; \
         php -r "unlink('composer-setup.php');"; \
-        php composer.phar install; \
+        php composer.phar install --no-dev; \
         cd public; \
         bower install --allow-root; \
         npm install grunt-contrib-watch grunt-contrib-less grunt-contrib-cssmin grunt-contrib-clean; \
