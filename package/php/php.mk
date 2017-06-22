@@ -22,7 +22,7 @@ PHP_CONF_OPTS = \
 	--with-config-file-path=/etc \
 	--disable-rpath \
     --enable-fpm
-    
+
 PHP_CONF_ENV = \
 	ac_cv_func_strcasestr=yes \
 	EXTRA_LIBS="$(PHP_EXTRA_LIBS)"
@@ -315,6 +315,7 @@ endef
 PHP_POST_INSTALL_TARGET_HOOKS += PHP_EXTENSIONS_FIXUP
 
 define PHP_INSTALL_FIXUP
+	rm -rf $(TARGET_DIR)/var/log
 	rm -rf $(TARGET_DIR)/usr/lib/php/build
 	rm -f $(TARGET_DIR)/usr/bin/phpize
 	$(INSTALL) -D -m 0755 $(PHP_DIR)/php.ini-production \
