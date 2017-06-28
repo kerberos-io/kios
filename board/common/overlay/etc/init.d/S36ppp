@@ -1,34 +1,26 @@
 #!/bin/bash
 
 sys_conf="/etc/ppp/default"
-boot_conf="/boot/ppp"
 conf="/data/etc/ppp"
 
 prog="/usr/sbin/pppd"
+dev="ppp0"
 provider="mobile"
 
 watch_conf="/data/etc/watch.conf"
 
 test -f $watch_conf && source $watch_conf
 
-if ! [ -d $conf ]; then
-    if [ -d $boot_conf ]; then
-        cp -r $boot_conf $conf
-    elif [ -d $sys_conf ]; then
-        cp -r $sys_conf $conf
-    fi
+if [ -d $sys_conf ] && ! [ -d $conf ]; then
+    cp -r $sys_conf $conf
 fi
 
-test -e $conf/modem || exit 0
-test -e $conf/apn || exit 0
+test -f $conf/modem || exit 0
 
 test -n "$os_version" || source /etc/init.d/base
-test -n "$os_debug" || source /etc/init.d/conf
-
-test "$os_networkless" == "true" && exit 0
 
 connected() {
-    ifconfig | grep $os_ppp &>/dev/null 2>&1 && return 0 || return 1
+    ifconfig | grep $dev &>/dev/null 2>&1 && return 0 || return 1
 }
 
 watch() {
@@ -49,26 +41,32 @@ watch() {
     done
 }
 
-udev_trigger_add() {
-    for ((i = 0; i < $1; i++)); do
-        /sbin/udevadm trigger --type=devices --action=add
-    done
-}
-
 start() {
-    test -e $conf/auth || touch $conf/auth
-    test -e $conf/extra || touch $conf/extra
-    test -e $conf/pin || touch $conf/pin
-    mknod /dev/ppp c 108 0 &>/dev/null
+    if [ -s $conf/usb_modeswitch ]; then
+        IFS=: venprod=($(cat $conf/usb_modeswitch))
+        vendor=${venprod[0]}
+        product=${venprod[1]}
+        # wait for usb device
+        if [ -n "$vendor" ] && [ -n "$product" ]; then
+            msg_begin "Starting usb_modeswitch"
+            count=0
+            while true; do
+                if lsusb | grep $vendor:$product >/dev/null 2>&1 || [ $count -gt $link_watch_timeout ]; then
+                    break
+                fi
+
+                count=$(($count + 1))
+                sleep 1
+            done
+            /usr/sbin/usb_modeswitch -c /etc/usb_modeswitch.conf -v $vendor -p $product > /var/log/usb_modeswitch.log 2>&1
+            msg_done
+        fi
+    fi
 
     msg_begin "Starting pppd"
 
     # wait for modem
     modem=$(head -n 1 $conf/modem)
-    if ! [ -e /dev/$modem ]; then
-        udev_trigger_add 4 &
-    fi
-
     count=0
     while true; do
         if [ -e /dev/$modem ] || [ $count -gt $link_watch_timeout ]; then
@@ -81,7 +79,7 @@ start() {
 
     if ! [ -e /dev/$modem ]; then
         msg_fail "modem /dev/$modem not present"
-        return
+        return 1
     fi
 
     $prog call $provider
@@ -95,7 +93,8 @@ start() {
 
         if [ $count -gt $link_watch_timeout ] || ! pidof pppd > /dev/null; then
             msg_fail
-            return
+            reboot
+            return 1
         fi
 
         count=$(($count + 1))
@@ -135,3 +134,4 @@ case "$1" in
 esac
 
 exit $?
+

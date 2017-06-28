@@ -61,15 +61,6 @@ chmod -R 777 $DATA_CONFIG_DIR
 
 ##########################################
 #
-# more settings have been added to /data/etc/os.conf
-
-echo 'os_networkless="false"' >> /data/etc/os.conf
-echo 'os_eth="eth0"' >> /data/etc/os.conf
-echo 'os_wlan="wlan0"' >> /data/etc/os.conf
-echo 'os_ppp="ppp0"' >> /data/etc/os.conf
-
-##########################################
-#
 # Update configuration files for web
 #
 

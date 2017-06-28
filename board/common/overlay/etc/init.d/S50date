@@ -1,35 +1,15 @@
 #!/bin/bash
 
 sys_conf="/etc/date.conf"
-boot_conf="/boot/date.conf"
 conf="/data/etc/date.conf"
 
-sys_ntp_conf="/etc/ntp.conf"
-boot_ntp_conf="/boot/ntp.conf"
-ntp_conf="/data/etc/ntp.conf"
-
-if ! [ -f $conf ]; then
-    if [ -f $boot_conf ]; then
-        cp $boot_conf $conf
-    elif [ -f $sys_conf ]; then
-        cp $sys_conf $conf
-    fi
-fi
-
-if ! [ -f $ntp_conf ]; then
-    if [ -f $boot_ntp_conf ]; then
-        cp $boot_ntp_conf $ntp_conf
-    elif [ -f $sys_ntp_conf ]; then
-        cp $sys_ntp_conf $ntp_conf
-    fi
+if [ -f $sys_conf ] && ! [ -f $conf ]; then
+    cp $sys_conf $conf
 fi
 
 test -f $conf || exit 0
 
 test -n "$os_version" || source /etc/init.d/base
-test -n "$os_debug" || source /etc/init.d/conf
-
-has_net_conn || exit 0
 
 date_timeout=10
 date_method=http
@@ -48,7 +28,7 @@ set_current_date_http() {
 
     timestamp=$(python -c "import calendar, httplib, email.utils; conn = httplib.HTTPConnection('$date_host'); conn.request('HEAD', '/'); \
             print calendar.timegm(email.utils.parsedate(conn.getresponse().getheader('date')))")
-
+    
     if [ -n "$timestamp" ]; then
         date +%s -s @$timestamp > /dev/null
     else
@@ -57,14 +37,14 @@ set_current_date_http() {
 }
 
 set_current_date_ntp() {
-    cat $ntp_conf | grep server | head -n 1 | cut -d ' ' -f 2 | xargs ntpdate -t $date_timeout -s
+    cat /etc/ntp.conf | grep server | head -n 1 | cut -d ' ' -f 2 | xargs ntpdate -t $date_timeout -s
 }
 
 start_http() {
     msg_begin "Setting current date using http"
     set_current_date_http
     test $? == 0 && msg_done "$(date)" || msg_fail
-
+    
     msg_begin "Starting http date updater"
     while true; do
         sleep $date_interval
@@ -75,24 +55,13 @@ start_http() {
 
 start_ntp() {
     mkdir -p /var/lib/ntp
-
-    cat $ntp_conf | grep -v iburst > ${ntp_conf}.tmp
-
-    if [ -n "$date_ntp_server" ]; then
-        echo "server $date_ntp_server iburst" > $ntp_conf
-    else
-        cat $sys_ntp_conf | grep iburst > $ntp_conf
-    fi
-
-    cat ${ntp_conf}.tmp >> $ntp_conf
-    rm ${ntp_conf}.tmp
-
+    
     msg_begin "Setting current date using ntp"
     set_current_date_ntp
     test $? == 0 && msg_done "$(date)" || msg_fail
 
     msg_begin "Starting ntpd"
-    ntpd -g -c $ntp_conf
+    ntpd -g -c /etc/ntp.conf
     test $? == 0 && msg_done || msg_fail
 }
 
@@ -114,8 +83,6 @@ start() {
     else
         start_ntp
     fi
-
-    echo "system date is $(date '+%Y-%m-%d %H:%M:%S')" > /dev/kmsg
 }
 
 stop() {
@@ -123,7 +90,7 @@ stop() {
         stop_http
     else
         stop_ntp
-    fi
+    fi        
 }
 
 case "$1" in
@@ -146,3 +113,4 @@ case "$1" in
 esac
 
 exit $?
+
