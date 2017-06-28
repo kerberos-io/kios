@@ -29,7 +29,7 @@ test -f $conf || exit 0
 test -n "$os_version" || source /etc/init.d/base
 test -n "$os_debug" || source /etc/init.d/conf
 
-test "$os_networkless" == "true" && exit 0
+has_net_conn || exit 0
 
 date_timeout=10
 date_method=http
@@ -38,11 +38,22 @@ date_interval="900"
 
 source $conf
 
+kill_after_timeout() {
+    sleep $date_timeout
+    ps aux | grep httplib | grep -v  grep | tr -s ' ' | cut -d ' ' -f 2 | xargs -r kill
+}
+
 set_current_date_http() {
-    date_str=$(curl -v -s -m $date_timeout -X GET http://$date_host 2>&1 | grep Date | sed -e 's/< Date: //')
-    test -z "$date_str" && return 1
-    date -u -D "%a, %d %b %Y %H:%M:%S" -s "$date_str" > /dev/null
-    return $?
+    kill_after_timeout &
+
+    timestamp=$(python -c "import calendar, httplib, email.utils; conn = httplib.HTTPConnection('$date_host'); conn.request('HEAD', '/'); \
+            print calendar.timegm(email.utils.parsedate(conn.getresponse().getheader('date')))")
+
+    if [ -n "$timestamp" ]; then
+        date +%s -s @$timestamp > /dev/null
+    else
+        return 1
+    fi
 }
 
 set_current_date_ntp() {
@@ -51,7 +62,7 @@ set_current_date_ntp() {
 
 start_http() {
     msg_begin "Setting current date using http"
-    set_current_date_http || set_current_date_http
+    set_current_date_http
     test $? == 0 && msg_done "$(date)" || msg_fail
 
     msg_begin "Starting http date updater"
@@ -77,7 +88,7 @@ start_ntp() {
     rm ${ntp_conf}.tmp
 
     msg_begin "Setting current date using ntp"
-    set_current_date_ntp || set_current_date_ntp
+    set_current_date_ntp
     test $? == 0 && msg_done "$(date)" || msg_fail
 
     msg_begin "Starting ntpd"
