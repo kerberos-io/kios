@@ -7,32 +7,44 @@ netwatch_interval=20
 
 test -f $watch_conf && source $watch_conf || exit 0
 
-test -z "$netwatch_host" || -z "$netwatch_port" && exit 0
-
-test -n "$os_version" || source /etc/init.d/base
+if [ -z "$netwatch_host" ] || [ -z "$netwatch_port" ]; then
+    exit 0
+fi
 
 watch() {
     count=0
     netwatch_retries=$(($netwatch_retries - 1))
     while true; do
-        if nc -z -w $netwatch_timeout $netwatch_host $netwatch_port </dev/null >/dev/null 2>&1; then
+        sleep $netwatch_interval
+
+        haveInternet=true
+        case "$(curl -s --max-time 2 -I $netwatch_host | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
+          [23]) haveInternet=true;;
+          5) haveInternet=true;;
+          *) haveInternet=false;;
+        esac
+
+        if [ "$haveInternet" = "true" ] ; then
             count=0
         else
             if [ $count -lt $netwatch_retries ]; then
+                logger -t netwatch -s "cannot connect to $netwatch_host"
                 count=$(($count + 1))
                 continue
             else
-                logger -t netwatch -s "cannot connect to $netwatch_host:$netwatch_port, rebooting"
+                logger -t netwatch -s "cannot connect to $netwatch_host, rebooting"
+                reboot
             fi
         fi
-        sleep $netwatch_interval
     done
 }
 
 case "$1" in
     start)
         msg_begin "Starting netwatch"
-        watch &
+        if [ "$netwatch_enable" == "yes" ]; then
+          watch &
+        fi
         msg_done
         ;;
 
@@ -46,11 +58,10 @@ case "$1" in
         stop
         start
         ;;
-        
+
     *)
         echo "Usage: $0 {start|stop|restart}"
         exit 1
 esac
 
 exit $?
-

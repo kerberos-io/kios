@@ -9,7 +9,7 @@ iface=wlan0
 driver=wext
 
 sys_watch_conf="/etc/watch.conf"
-watch_conf="/etc/watch.conf"
+watch_conf="/data/etc/watch.conf"
 
 link_watch=no
 link_watch_timeout=20
@@ -66,7 +66,7 @@ start() {
             return 1
         fi
     done
-    
+
     module=$(basename $(readlink /sys/class/net/$iface/device/driver/module 2>/dev/null) 2>/dev/null)
 
     iwconfig $iface power off &> /dev/null
@@ -105,16 +105,16 @@ case "$1" in
     start)
         start
         ;;
-        
+
     stop)
         stop
         ;;
-        
+
     restart)
         stop
         start
         ;;
-    
+
     *)
         echo "Usage: $0 {start|stop|restart}"
         exit 1
