@@ -6,7 +6,7 @@ conf="/data/etc/wpa_supplicant.conf"
 
 log="/var/log/wpa_supplicant.log"
 prog="/usr/sbin/wpa_supplicant"
-driver=nl80211,wext
+driver=wext
 
 sys_watch_conf="/etc/watch.conf"
 boot_watch_conf="/boot/watch.conf"
