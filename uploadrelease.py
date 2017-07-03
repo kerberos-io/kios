@@ -29,6 +29,7 @@ for (dirpath, dirnames, filenames) in walk(path):
         if dirParts[3] not in dates:
             dates.append(dirParts[3])
 
+dates.sort(key=int)
 lastRelease = dates[-1]
 
 # Get files from last release and take only the web.tar.gz
@@ -55,7 +56,7 @@ for file in filesToUpload:
         'content-type': 'application/octet-stream',
         'Authorization': 'token %s' % token
     }
-    pathParts = fullPath.split("/")
+    pathParts = file.split("/")
     url = "https://uploads.github.com/repos/cedricve/kios/releases/%s/assets?name=%s" % (releaseID, pathParts[4])
     response = requests.post(url, data=open(file,'rb'), headers=headers)
     print response
