@@ -41,4 +41,5 @@ cd $DIR/output/raspberrypi3/target/var/www/web && sed -i 's/\/data\/machinery\/c
 
 echo "Uploading last release to Github (cedricve/kios)"
 
+cd $DIR
 python uploadrelease.py
