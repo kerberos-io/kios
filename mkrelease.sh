@@ -38,3 +38,7 @@ mkdir -p $DIR/releases/rpi3/$DATE
 cp $DIR/kios-raspberrypi3-* $DIR/releases/rpi3/$DATE
 for file in $DIR/output/raspberrypi3/build/kerberosio-machinery*/kerberosio*; do cp -v -- "$file" "$DIR/releases/rpi3/$DATE/rpi3-machinery-${file##*/}"; done
 cd $DIR/output/raspberrypi3/target/var/www/web && sed -i 's/\/data\/machinery\/config/\/\etc\/opt\/kerberosio\/config/g' config/app.php && tar czf $DIR/releases/rpi3/$DATE/web.tar.gz .
+
+echo "Uploading last release to Github (cedricve/kios)"
+
+python uploadrelease.py
