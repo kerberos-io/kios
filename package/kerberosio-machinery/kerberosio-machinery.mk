@@ -38,7 +38,7 @@ define KERBEROSIO_MACHINERY_BIND_DIRS_TO_DATA
   rm -rf $(TARGET_DIR)/etc/opt/kerberosio/symbols
   ln -s /data/machinery/symbols $(TARGET_DIR)/etc/opt/kerberosio/symbols
   rm -rf $(TARGET_DIR)/etc/opt/kerberosio/h264
-  ln -s /data/machinery/symbols $(TARGET_DIR)/etc/opt/kerberosio/h264
+  ln -s /data/machinery/h264 $(TARGET_DIR)/etc/opt/kerberosio/h264
 
 endef
 
