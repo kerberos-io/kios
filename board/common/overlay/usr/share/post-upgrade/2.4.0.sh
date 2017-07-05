@@ -59,6 +59,9 @@ done
 
 chmod -R 777 $DATA_CONFIG_DIR
 
+mkdir -p /data/machinery/h264
+chmod -R 777 /data/machinery/h264
+
 ##########################################
 #
 # Update configuration files for web
