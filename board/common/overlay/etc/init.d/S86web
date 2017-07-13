@@ -1,14 +1,13 @@
 #!/bin/bash
 
 sys_conf="/var/www/web"
-conf="/data/web"
+conf="/data/web/storage"
 
 start() {
     echo "Configuring kerberos.io web"
 
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
-        mkdir -p /data/web/
-
+      
         cp -R /var/www/web/storage /data/web/
         chmod -R 777 /data/web/storage
 
