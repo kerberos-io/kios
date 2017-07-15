@@ -2,6 +2,7 @@
 
 sys_conf="/etc/opt/kerberosio/config/config.xml"
 conf="/data/machinery/config/config.xml"
+watch_conf="/data/etc/watch.conf"
 
 if [ -f $sys_conf ] && ! [ -f $conf ]; then
     mkdir -p /data/machinery/config
@@ -14,12 +15,16 @@ if [ -f $sys_conf ] && ! [ -f $conf ]; then
     chmod -R 777 /data/machinery/logs
     mkdir -p /data/machinery/capture
     chmod -R 777 /data/machinery/capture
+    mkdir -p /data/machinery/h264
+    chmod -R 777 /data/machinery/h264
 fi
+
+test -f $watch_conf && source $watch_conf || exit 0
 
 watch() {
     while true; do
         sleep 3
-        
+
         pid=$(pgrep -l kerberosio | cut -d ' ' -f 1)
         if [ "$pid" = "" ]; then
                 echo "Starting kerberos.io machinery"
@@ -27,7 +32,13 @@ watch() {
                 pkill -f kerberosio
                 kerberosio --config $conf &
         fi
-        
+    done
+}
+
+autoremoval() {
+    while true; do
+        sleep 60
+
         if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
         then
                 echo "Cleaning disk"
@@ -39,6 +50,10 @@ watch() {
 start() {
     echo  "Starting kerberos.io machinery"
     watch &
+
+    if [ "$autoremoval" == "yes" ]; then
+        autoremoval &
+    fi
 }
 
 stop() {

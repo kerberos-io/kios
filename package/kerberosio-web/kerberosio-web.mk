@@ -12,7 +12,7 @@ KERBEROSIO_WEB_DEPENDENCIES = kerberosio-machinery nginx php
 
 ##########################################################################
 #
-# The configuration requires to have PHP (+ curl and mcrypt extension) and 
+# The configuration requires to have PHP (+ curl and mcrypt extension) and
 # nodejs/bower installed on the build machine.
 #
 
@@ -21,11 +21,15 @@ define KERBEROSIO_WEB_BUILD_CMDS
         php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php; \
         php composer-setup.php; \
         php -r "unlink('composer-setup.php');"; \
-        php composer.phar install; \
+        php composer.phar install --no-dev; \
+        php artisan key:generate; \
         cd public; \
         bower install --allow-root; \
+        npm install grunt-contrib-watch grunt-contrib-less grunt-contrib-cssmin grunt-contrib-clean; \
+				grunt cleanUpJS; \
+				rm -rf node_modules; \
     )
-endef 
+endef
 
 ##########################################################################
 #
@@ -33,18 +37,14 @@ endef
 #
 
 define KERBEROSIO_WEB_INSTALL_TARGET_CMDS
-    
+
     rm -rf $(TARGET_DIR)/var/www/web
-    mkdir -p $(TARGET_DIR)/var/www/web
-    cp -R $(@D)/* $(TARGET_DIR)/var/www/web
-    sed -i "s#\$$this\['path'\] . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/bootstrap/compiled.php
-    sed -i "s#__DIR__.'/../app/storage'#'/data/web/app/storage'#g" $(TARGET_DIR)/var/www/web/bootstrap/paths.php
-    sed -i "s#app_path() . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/app/controllers/UserController.php
-    sed -i "s#app_path() . '/config'#'/data/web/app/config'#g" $(TARGET_DIR)/var/www/web/app/controllers/SettingsController.php
-    
+    mkdir -p $(TARGET_DIR)/var/www
+    cp -R $(@D) $(TARGET_DIR)/var/www/web
+
     # enable memcached
     cat $(TARGET_DIR)/etc/php.ini | grep -q extension=memcached.so || echo "extension=memcached.so" >> $(TARGET_DIR)/etc/php.ini
-    
-endef 
+
+endef
 
 $(eval $(generic-package))

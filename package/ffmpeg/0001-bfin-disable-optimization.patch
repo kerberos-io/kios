@@ -24,4 +24,3 @@ diff -Nur ffmpeg-2.8.7.orig/libavcodec/hevcdsp_template.c ffmpeg-2.8.7/libavcode
                                          ptrdiff_t _xstride, ptrdiff_t _ystride,
                                          int beta, int *_tc,
                                          uint8_t *_no_p, uint8_t *_no_q)
-

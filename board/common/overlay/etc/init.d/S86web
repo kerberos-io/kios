@@ -1,17 +1,21 @@
 #!/bin/bash
 
 sys_conf="/var/www/web"
-conf="/data/web/app"
+conf="/data/web/storage"
 
 start() {
     echo "Configuring kerberos.io web"
-    
+
     if [ -d $sys_conf ] && ! [ -d $conf ]; then
-        mkdir -p /data/web/app
-        cp -R /var/www/web/app/storage /data/web/app
-        cp -R /var/www/web/app/config /data/web/app
-        sed -i "s#__DIR__.'/../views'#'/var/www/web/app/views'#g" /data/web/app/config/view.php
-        chmod -R 777 /data/web/app
+      
+        cp -R /var/www/web/storage /data/web/
+        chmod -R 777 /data/web/storage
+
+        cp -R /var/www/web/config /data/web/
+        chmod -R 777 /data/web/config/kerberos.php
+
+        cp -R /var/www/web/bootstrap /data/web/
+        chmod -R 777 /data/web/bootstrap/cache
     fi
 }
 
