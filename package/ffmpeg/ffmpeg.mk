@@ -22,9 +22,7 @@ endif
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
 	--enable-static \
-        --disable-shared \
-        --enable-omx \
-        --enable-omx-rpi \
+  --disable-shared \
 	--enable-avfilter \
 	--disable-version3 \
 	--enable-logging \
@@ -480,6 +478,10 @@ else ifneq ($(call qstrip,$(BR2_GCC_TARGET_ARCH)),)
 FFMPEG_CONF_OPTS += --cpu=$(BR2_GCC_TARGET_ARCH)
 endif
 
+ifeq ($(BR2_PACKAGE_FFMPEG_RPI_HW_CODECS),y)
+FFMPEG_DEPENDENCIES += rpi-userland
+FFMPEG_CONF_OPTS += --enable-omx --enable-omx-rpi --enable-mmal --extra-cflags=-I../../staging/usr/include/IL/
+endif
 
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
 
