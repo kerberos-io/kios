@@ -480,7 +480,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG_RPI_HW_CODECS),y)
 FFMPEG_DEPENDENCIES += rpi-userland
-FFMPEG_CONF_OPTS += --enable-omx --enable-omx-rpi --enable-mmal --extra-cflags=-I../../staging/usr/include/IL/
+FFMPEG_CONF_OPTS += --enable-omx --enable-omx-rpi --extra-cflags=-I../../staging/usr/include/IL/
 endif
 
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
