@@ -1,4 +1,4 @@
-gpu_mem=128
+gpu_mem=196
 disable_camera_led=1
 
 dtparam=i2c_arm=on
