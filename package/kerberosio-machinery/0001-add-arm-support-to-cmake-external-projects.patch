@@ -15,18 +15,18 @@ Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
  cmake/External-Restclient.cmake |  4 ++--
  5 files changed, 15 insertions(+), 11 deletions(-)
 
- diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
- index d144d6a..214b38d 100755
- --- a/cmake/External-Googletest.cmake
- +++ b/cmake/External-Googletest.cmake
- @@ -11,6 +11,7 @@ ExternalProject_Add(googletest
-      -DCMAKE_BUILD_TYPE:STRING=Release
-      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-      -Dgtest_force_shared_crt=OFF
- +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
-    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
-    INSTALL_COMMAND ""
-  )
+diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
+index 926e637..c0fb3ed 100755
+--- a/cmake/External-Googletest.cmake
++++ b/cmake/External-Googletest.cmake
+@@ -11,6 +11,7 @@ ExternalProject_Add(googletest
+     -DCMAKE_BUILD_TYPE:STRING=Release
+     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
+     -Dgtest_force_shared_crt=OFF
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
+   INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
+   INSTALL_COMMAND ""
+ )
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index 2020e5c..715bda0 100755
 --- a/cmake/External-OpenCV.cmake
