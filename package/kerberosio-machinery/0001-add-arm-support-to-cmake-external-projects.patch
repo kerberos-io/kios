@@ -8,7 +8,7 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
 ---
- cmake/External-Googletest.cmake |  3 ++-
+ cmake/External-Googletest.cmake |  1 +
  cmake/External-OpenCV.cmake     | 13 +++++++------
  cmake/External-OpenMax.cmake    |  3 ++-
  cmake/External-RaspiCam.cmake   |  3 ++-
@@ -16,7 +16,7 @@ Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
  5 files changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
-index 926e637..c0fb3ed 100755
+index d144d6a..214b38d 100755
 --- a/cmake/External-Googletest.cmake
 +++ b/cmake/External-Googletest.cmake
 @@ -11,6 +11,7 @@ ExternalProject_Add(googletest
