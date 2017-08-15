@@ -15,25 +15,18 @@ Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
  cmake/External-Restclient.cmake |  4 ++--
  5 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
-index 926e637..c0fb3ed 100755
---- a/cmake/External-Googletest.cmake
-+++ b/cmake/External-Googletest.cmake
-@@ -10,6 +10,7 @@ ExternalProject_Add(googletest
-     -DCMAKE_BUILD_TYPE:STRING=Release
-     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-     -Dgtest_force_shared_crt=OFF
-+    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
-   INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
-   INSTALL_COMMAND ""
- )
-@@ -20,4 +21,4 @@ set(GOOGLETEST_LIBRARY_DIR ${CMAKE_BINARY_DIR}/googletest/)
- include_directories(${GOOGLETEST_INCLUDE_DIR})
- link_directories(${GOOGLETEST_LIBRARY_DIR})
- 
--set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
-\ No newline at end of file
-+set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
+ diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
+ index d144d6a..214b38d 100755
+ --- a/cmake/External-Googletest.cmake
+ +++ b/cmake/External-Googletest.cmake
+ @@ -11,6 +11,7 @@ ExternalProject_Add(googletest
+      -DCMAKE_BUILD_TYPE:STRING=Release
+      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
+      -Dgtest_force_shared_crt=OFF
+ +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
+    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
+    INSTALL_COMMAND ""
+  )
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index 2020e5c..715bda0 100755
 --- a/cmake/External-OpenCV.cmake
@@ -46,7 +39,7 @@ index 2020e5c..715bda0 100755
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
  )
- 
+
 -set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
 +set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
  if(NOT WIN32)
@@ -58,7 +51,7 @@ index 2020e5c..715bda0 100755
 @@ -63,9 +64,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video open
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
- 
+
 -if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
 -    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
 +if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
@@ -77,11 +70,11 @@ index c9638a0..e5211dd 100755
    INSTALL_COMMAND ""
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
--    -DBUILD_SHARED_LIBS=OFF   
+-    -DBUILD_SHARED_LIBS=OFF
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -DBUILD_SHARED_LIBS=OFF
  )
- 
+
  set(OPENMAX_INCLUDE_DIR ${CMAKE_BINARY_DIR}/openmax/include/)
 diff --git a/cmake/External-RaspiCam.cmake b/cmake/External-RaspiCam.cmake
 index 36e7d1f..c9ef1a2 100755
@@ -94,10 +87,10 @@ index 36e7d1f..c9ef1a2 100755
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_UTILS=OFF
  )
- 
+
 @@ -33,4 +34,4 @@ set(RASPBERRYPI_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
  set(RASPBERRYPI_LIBRARIES raspicam.a raspicam_cv.a mmal mmal_core mmal_util)
- 
+
  include_directories(${RASPBERRYPI_INCLUDE_DIR})
 -link_directories(${RASPBERRYPI_LIBRARY_DIR})
 \ No newline at end of file
@@ -117,11 +110,10 @@ index 34eb211..b67d0ff 100755
  )
 @@ -18,4 +18,4 @@ set(RESTCLIENT_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
  set(RESTCLIENT_LIBRARIES restclient-cpp curl)
- 
+
  include_directories(${RESTCLIENT_INCLUDE_DIR})
 -link_directories(${RESTCLIENT_LIBRARY_DIR})
 \ No newline at end of file
 +link_directories(${RESTCLIENT_LIBRARY_DIR})
--- 
+--
 2.12.0
-
