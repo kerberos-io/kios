@@ -8,7 +8,7 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
 ---
- cmake/External-Googletest.cmake |  1 +
+ cmake/External-Googletest.cmake |  3 ++-
  cmake/External-OpenCV.cmake     | 13 +++++++------
  cmake/External-OpenMax.cmake    |  3 ++-
  cmake/External-RaspiCam.cmake   |  3 ++-
@@ -16,10 +16,10 @@ Signed-off-by: Cédric Verstraeten <hello@cedric.ws>
  5 files changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
-index d144d6a..214b38d 100755
+index 926e637..c0fb3ed 100755
 --- a/cmake/External-Googletest.cmake
 +++ b/cmake/External-Googletest.cmake
-@@ -11,6 +11,7 @@ ExternalProject_Add(googletest
+@@ -10,6 +10,7 @@ ExternalProject_Add(googletest
      -DCMAKE_BUILD_TYPE:STRING=Release
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -Dgtest_force_shared_crt=OFF
@@ -27,6 +27,13 @@ index d144d6a..214b38d 100755
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
+@@ -20,4 +21,4 @@ set(GOOGLETEST_LIBRARY_DIR ${CMAKE_BINARY_DIR}/googletest/)
+ include_directories(${GOOGLETEST_INCLUDE_DIR})
+ link_directories(${GOOGLETEST_LIBRARY_DIR})
+
+-set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
+\ No newline at end of file
++set(GOOGLETEST_LIBRARIES "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock.a" "${GOOGLETEST_LIBRARY_DIR}googlemock/libgmock_main.a")
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index 2020e5c..715bda0 100755
 --- a/cmake/External-OpenCV.cmake
