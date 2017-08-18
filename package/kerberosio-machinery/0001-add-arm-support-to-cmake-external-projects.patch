@@ -1,14 +1,8 @@
-From abaacb823c3ea3522fbd2b4e1d0c60edc8a3a35c Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?C=C3=A9dric=20Verstraeten?= <hello@cedric.ws>
-Date: Tue, 15 Aug 2017 21:42:09 +0200
-Subject: [PATCH] fix for buildroot
+commit e10abf947313ade965bb8d8b66c9d0ea41eafd59
+Author: Cédric Verstraeten <hello@cedric.ws>
+Date:   Fri Aug 18 17:22:09 2017 +0200
 
----
- cmake/External-Googletest.cmake |  3 ++-
- cmake/External-OpenCV.cmake     | 13 +++++++------
- cmake/External-OpenMax.cmake    |  3 ++-
- cmake/External-Restclient.cmake |  4 ++--
- 4 files changed, 13 insertions(+), 10 deletions(-)
+    arm build
 
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index fd95600..f0b0e1b 100755
@@ -60,19 +54,17 @@ index 2020e5c..715bda0 100755
 \ No newline at end of file
 +endif()
 diff --git a/cmake/External-OpenMax.cmake b/cmake/External-OpenMax.cmake
-index c9638a0..e5211dd 100755
+index 6f2f55c..cba0df1 100755
 --- a/cmake/External-OpenMax.cmake
 +++ b/cmake/External-OpenMax.cmake
-@@ -24,7 +24,8 @@ ExternalProject_Add(openmax
+@@ -25,6 +25,7 @@ ExternalProject_Add(openmax
    INSTALL_COMMAND ""
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
--    -DBUILD_SHARED_LIBS=OFF   
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
-+    -DBUILD_SHARED_LIBS=OFF
+     -DBUILD_SHARED_LIBS=OFF
  )
  
- set(OPENMAX_INCLUDE_DIR ${CMAKE_BINARY_DIR}/openmax/include/)
 diff --git a/cmake/External-Restclient.cmake b/cmake/External-Restclient.cmake
 index 5cd3a44..1b41703 100755
 --- a/cmake/External-Restclient.cmake
@@ -93,6 +85,3 @@ index 5cd3a44..1b41703 100755
 -link_directories(${RESTCLIENT_LIBRARY_DIR})
 \ No newline at end of file
 +link_directories(${RESTCLIENT_LIBRARY_DIR})
--- 
-2.12.0
-
