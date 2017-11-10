@@ -1,9 +1,41 @@
-commit e10abf947313ade965bb8d8b66c9d0ea41eafd59
-Author: Cédric Verstraeten <hello@cedric.ws>
-Date:   Fri Aug 18 17:22:09 2017 +0200
-
-    arm build
-
+diff --git a/.travis.yml b/.travis.yml
+index b96f04d..8c84722 100755
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -1,10 +1,14 @@
++branches:
++  except:
++    - buildroot-patch
++
+ sudo:
+     - false
+-    
++
+ os:
+     - linux
+-    
+-language: 
++
++language:
+     - cpp
+ 
+ services:
+@@ -17,7 +21,7 @@ before_install:
+     - sudo apt-get update
+     - sudo apt-get install x264 v4l-utils
+ 
+-script: 
++script:
+     mkdir build && cd build && cmake .. && make && make check && sudo make install
+ 
+ notifications:
+@@ -39,4 +43,4 @@ after_success:
+             docker build --build-arg APP_ENV="$TRAVIS_BRANCH" -t kerberos/machinery:$TRAVIS_BRANCH .;
+             docker push kerberos/machinery:$TRAVIS_BRANCH;
+         fi
+-      fi
+\ No newline at end of file
++      fi
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index fd95600..f0b0e1b 100755
 --- a/cmake/External-Googletest.cmake
@@ -18,8 +50,20 @@ index fd95600..f0b0e1b 100755
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
+diff --git a/cmake/External-Mosquitto.cmake b/cmake/External-Mosquitto.cmake
+index 56f7390..683d0ad 100644
+--- a/cmake/External-Mosquitto.cmake
++++ b/cmake/External-Mosquitto.cmake
+@@ -10,6 +10,7 @@ ExternalProject_Add(mosquitto
+   CMAKE_GENERATOR ${gen}
+   INSTALL_COMMAND mkdir -p ../thirdparty/lib/ && cp lib/cpp/libmosquittopp.a ../thirdparty/lib/
+   CMAKE_ARGS
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
+     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
+     -DWITH_UUID=no
+     -DWITH_WEBSOCKETS=no
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
-index 2020e5c..715bda0 100755
+index 25adc1e..a8a0e0e 100755
 --- a/cmake/External-OpenCV.cmake
 +++ b/cmake/External-OpenCV.cmake
 @@ -48,12 +48,13 @@ ExternalProject_Add(opencv
