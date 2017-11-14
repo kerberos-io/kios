@@ -67,17 +67,5 @@ chmod -R 777 /data/machinery/h264
 # Update configuration files for web
 #
 
-cp -R /var/www/web/storage /data/web/
-chmod -R 777 /data/web/storage
-
-cp -R /var/www/web/config /data/web/
-mv /data/web/app/config/kerberos.php /data/web/config/kerberos.php
-chmod 777 /data/web/config/kerberos.php
-
-cp -R /var/www/web/bootstrap /data/web/
-chmod -R 777 /data/web/bootstrap/cache
-
 cp /var/www/web/config/app.php /data/web/config/app.php
 chmod 777 /data/web/config/app.php
-
-rm -rf /data/web/app
