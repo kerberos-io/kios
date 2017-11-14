@@ -509,7 +509,6 @@ define FFMPEG_CONFIGURE_CMDS
 		--target-os="linux" \
 		--disable-stripping \
 		--pkg-config="$(PKG_CONFIG_HOST_BINARY)" \
-		$(SHARED_STATIC_LIBS_OPTS) \
 		$(FFMPEG_CONF_OPTS) \
 	)
 endef
