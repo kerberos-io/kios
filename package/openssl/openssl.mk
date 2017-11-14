@@ -85,8 +85,8 @@ define OPENSSL_CONFIGURE_CMDS
 			enable-camellia \
 			enable-mdc2 \
 			enable-tlsext \
-			$(if $(BR2_STATIC_LIBS),zlib,zlib-dynamic) \
-			$(if $(BR2_STATIC_LIBS),no-dso) \
+			zlib \
+			no-dso \
 	)
 	$(SED) "s#-march=[-a-z0-9] ##" -e "s#-mcpu=[-a-z0-9] ##g" $(@D)/Makefile
 	$(SED) "s#-O[0-9]#$(OPENSSL_CFLAGS)#" $(@D)/Makefile
@@ -94,12 +94,11 @@ define OPENSSL_CONFIGURE_CMDS
 endef
 
 # libdl is not available in a static build, and this is not implied by no-dso
-ifeq ($(BR2_STATIC_LIBS),n)
+
 define OPENSSL_FIXUP_STATIC_MAKEFILE
 	$(SED) 's#-ldl##g' $(@D)/Makefile
 endef
 OPENSSL_POST_CONFIGURE_HOOKS += OPENSSL_FIXUP_STATIC_MAKEFILE
-endif
 
 define HOST_OPENSSL_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D)
@@ -124,24 +123,12 @@ define OPENSSL_INSTALL_TARGET_CMDS
 endef
 
 # libdl has no business in a static build
-ifeq ($(BR2_STATIC_LIBS),n)
 define OPENSSL_FIXUP_STATIC_PKGCONFIG
 	$(SED) 's#-ldl##' $(STAGING_DIR)/usr/lib/pkgconfig/libcrypto.pc
 	$(SED) 's#-ldl##' $(STAGING_DIR)/usr/lib/pkgconfig/libssl.pc
 	$(SED) 's#-ldl##' $(STAGING_DIR)/usr/lib/pkgconfig/openssl.pc
 endef
 OPENSSL_POST_INSTALL_STAGING_HOOKS += OPENSSL_FIXUP_STATIC_PKGCONFIG
-endif
-
-ifneq ($(BR2_STATIC_LIBS),n)
-# libraries gets installed read only, so strip fails
-define OPENSSL_INSTALL_FIXUPS_SHARED
-	chmod +w $(TARGET_DIR)/usr/lib/engines/lib*.so
-	for i in $(addprefix $(TARGET_DIR)/usr/lib/,libcrypto.so.* libssl.so.*); \
-	do chmod +w $$i; done
-endef
-OPENSSL_POST_INSTALL_TARGET_HOOKS += OPENSSL_INSTALL_FIXUPS_SHARED
-endif
 
 ifeq ($(BR2_PACKAGE_PERL),)
 define OPENSSL_REMOVE_PERL_SCRIPTS
