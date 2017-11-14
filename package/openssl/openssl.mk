@@ -94,7 +94,7 @@ define OPENSSL_CONFIGURE_CMDS
 endef
 
 # libdl is not available in a static build, and this is not implied by no-dso
-ifeq ($(BR2_STATIC_LIBS),y)
+ifeq ($(BR2_STATIC_LIBS),n)
 define OPENSSL_FIXUP_STATIC_MAKEFILE
 	$(SED) 's#-ldl##g' $(@D)/Makefile
 endef
@@ -124,7 +124,7 @@ define OPENSSL_INSTALL_TARGET_CMDS
 endef
 
 # libdl has no business in a static build
-ifeq ($(BR2_STATIC_LIBS),y)
+ifeq ($(BR2_STATIC_LIBS),n)
 define OPENSSL_FIXUP_STATIC_PKGCONFIG
 	$(SED) 's#-ldl##' $(STAGING_DIR)/usr/lib/pkgconfig/libcrypto.pc
 	$(SED) 's#-ldl##' $(STAGING_DIR)/usr/lib/pkgconfig/libssl.pc
@@ -133,7 +133,7 @@ endef
 OPENSSL_POST_INSTALL_STAGING_HOOKS += OPENSSL_FIXUP_STATIC_PKGCONFIG
 endif
 
-ifneq ($(BR2_STATIC_LIBS),y)
+ifneq ($(BR2_STATIC_LIBS),n)
 # libraries gets installed read only, so strip fails
 define OPENSSL_INSTALL_FIXUPS_SHARED
 	chmod +w $(TARGET_DIR)/usr/lib/engines/lib*.so
