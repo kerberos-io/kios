@@ -80,7 +80,7 @@ define OPENSSL_CONFIGURE_CMDS
 			--openssldir=/etc/ssl \
 			--libdir=/lib \
 			$(if $(BR2_TOOLCHAIN_HAS_THREADS),threads,no-threads) \
-			$(if $(BR2_STATIC_LIBS),no-shared,shared) \
+			no-shared \
 			no-rc5 \
 			enable-camellia \
 			enable-mdc2 \
