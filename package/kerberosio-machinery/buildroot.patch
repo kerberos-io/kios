@@ -1,132 +1,132 @@
 diff --git a/.travis.yml b/.travis.yml
-index 8c84722..b96f04d 100755
+index b96f04d..8c84722 100755
 --- a/.travis.yml
 +++ b/.travis.yml
-@@ -1,14 +1,10 @@
--branches:
--  except:
--    - buildroot-patch
--
+@@ -1,10 +1,14 @@
++branches:
++  except:
++    - buildroot-patch
++
  sudo:
      - false
--
-+    
+-    
++
  os:
      - linux
--
--language:
-+    
-+language: 
+-    
+-language: 
++
++language:
      - cpp
  
  services:
-@@ -21,7 +17,7 @@ before_install:
+@@ -17,7 +21,7 @@ before_install:
      - sudo apt-get update
      - sudo apt-get install x264 v4l-utils
  
--script:
-+script: 
+-script: 
++script:
      mkdir build && cd build && cmake .. && make && make check && sudo make install
  
  notifications:
-@@ -43,4 +39,4 @@ after_success:
+@@ -39,4 +43,4 @@ after_success:
              docker build --build-arg APP_ENV="$TRAVIS_BRANCH" -t kerberos/machinery:$TRAVIS_BRANCH .;
              docker push kerberos/machinery:$TRAVIS_BRANCH;
          fi
 -      fi
-+      fi
 \ No newline at end of file
++      fi
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
-index f0b0e1b..fd95600 100755
+index fd95600..f0b0e1b 100755
 --- a/cmake/External-Googletest.cmake
 +++ b/cmake/External-Googletest.cmake
-@@ -10,8 +10,7 @@ ExternalProject_Add(googletest
+@@ -10,7 +10,8 @@ ExternalProject_Add(googletest
    CMAKE_ARGS
      -DCMAKE_BUILD_TYPE:STRING=Release
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
 -    -Dgtest_force_shared_crt=OFF
--    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -Dgtest_force_shared_crt=OFF
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
    INSTALL_DIR ${CMAKE_BINARY_DIR}/thirdparty
    INSTALL_COMMAND ""
  )
 diff --git a/cmake/External-Mosquitto.cmake b/cmake/External-Mosquitto.cmake
-index 41c33c1..3873da3 100644
+index 3873da3..41c33c1 100644
 --- a/cmake/External-Mosquitto.cmake
 +++ b/cmake/External-Mosquitto.cmake
-@@ -10,7 +10,6 @@ ExternalProject_Add(mosquitto
+@@ -10,6 +10,7 @@ ExternalProject_Add(mosquitto
    CMAKE_GENERATOR ${gen}
    INSTALL_COMMAND mkdir -p ../thirdparty/lib/ && cp lib/cpp/libmosquittopp.a ../thirdparty/lib/
    CMAKE_ARGS
--    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -DWITH_UUID=no
      -DWITH_WEBSOCKETS=no
-@@ -20,6 +19,6 @@ ExternalProject_Add(mosquitto
+@@ -19,6 +20,6 @@ ExternalProject_Add(mosquitto
  set(MOSQUITTO_INCLUDE_DIR ${CMAKE_BINARY_DIR}/mosquitto/lib/ ${CMAKE_BINARY_DIR}/mosquitto/lib/cpp/)
  set(MOSQUITTO_LIBRARY_DIR  ${CMAKE_BINARY_DIR}/mosquitto-build/lib/cpp/)
  
--set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto.a ssl.a)
-+set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto ssl)
+-set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto ssl)
++set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto.a ssl.a)
  
  include_directories(${MOSQUITTO_INCLUDE_DIR})
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
-index a8a0e0e..25adc1e 100755
+index 25adc1e..a8a0e0e 100755
 --- a/cmake/External-OpenCV.cmake
 +++ b/cmake/External-OpenCV.cmake
-@@ -48,13 +48,12 @@ ExternalProject_Add(opencv
+@@ -48,12 +48,13 @@ ExternalProject_Add(opencv
      -DBUILD_ZLIB:BOOL=ON
      -DBUILD_WITH_STATIC_CRT:BOOL=ON
      -DBUILD_FAT_JAVA_LIB=OFF
--    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
--    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
-+    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
+-    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
  )
  
--set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
-+set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
+-set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
++set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
  if(NOT WIN32)
--  set(OPENCV_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
-+  set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
+-  set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
++  set(OPENCV_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/)
  else()
    set(OPENCV_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/x86/vc12/lib)
  endif()
-@@ -64,9 +63,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video open
+@@ -63,9 +64,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video open
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
  
--if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
--    include(${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
-+if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
-+    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
+-if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
+-    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
++if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
++    include(${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake)
      add_custom_target(rerun)
  else()
      add_custom_target(rerun ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS opencv)
 -endif()
-+endif()
 \ No newline at end of file
++endif()
 diff --git a/cmake/External-OpenMax.cmake b/cmake/External-OpenMax.cmake
-index cba0df1..6f2f55c 100755
+index 6f2f55c..cba0df1 100755
 --- a/cmake/External-OpenMax.cmake
 +++ b/cmake/External-OpenMax.cmake
-@@ -25,7 +25,6 @@ ExternalProject_Add(openmax
+@@ -25,6 +25,7 @@ ExternalProject_Add(openmax
    INSTALL_COMMAND ""
    CMAKE_ARGS
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
--    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
++    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_SHARED_LIBS=OFF
  )
  
 diff --git a/cmake/External-Restclient.cmake b/cmake/External-Restclient.cmake
-index 1b41703..5cd3a44 100755
+index 5cd3a44..1b41703 100755
 --- a/cmake/External-Restclient.cmake
 +++ b/cmake/External-Restclient.cmake
 @@ -7,7 +7,7 @@ ExternalProject_Add(restclient
    BUILD_IN_SOURCE 1
    UPDATE_COMMAND ""
    PATCH_COMMAND ""
--  CONFIGURE_COMMAND ./autogen.sh && ./configure --host=arm-buildroot-linux-gnueabihf
-+  CONFIGURE_COMMAND ./autogen.sh && ./configure
+-  CONFIGURE_COMMAND ./autogen.sh && ./configure
++  CONFIGURE_COMMAND ./autogen.sh && ./configure --host=arm-buildroot-linux-gnueabihf
    BUILD_COMMAND make && mkdir -p ../thirdparty/lib/ && cp .libs/librestclient-cpp.a ../thirdparty/lib/
    INSTALL_COMMAND ""
  )
@@ -135,5 +135,5 @@ index 1b41703..5cd3a44 100755
  
  include_directories(${RESTCLIENT_INCLUDE_DIR})
 -link_directories(${RESTCLIENT_LIBRARY_DIR})
-+link_directories(${RESTCLIENT_LIBRARY_DIR})
 \ No newline at end of file
++link_directories(${RESTCLIENT_LIBRARY_DIR})
