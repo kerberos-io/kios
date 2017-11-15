@@ -51,7 +51,7 @@ index fd95600..f0b0e1b 100755
    INSTALL_COMMAND ""
  )
 diff --git a/cmake/External-Mosquitto.cmake b/cmake/External-Mosquitto.cmake
-index 3873da3..41c33c1 100644
+index 3873da3..6d50002 100644
 --- a/cmake/External-Mosquitto.cmake
 +++ b/cmake/External-Mosquitto.cmake
 @@ -10,6 +10,7 @@ ExternalProject_Add(mosquitto
@@ -62,14 +62,6 @@ index 3873da3..41c33c1 100644
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
      -DWITH_UUID=no
      -DWITH_WEBSOCKETS=no
-@@ -19,6 +20,6 @@ ExternalProject_Add(mosquitto
- set(MOSQUITTO_INCLUDE_DIR ${CMAKE_BINARY_DIR}/mosquitto/lib/ ${CMAKE_BINARY_DIR}/mosquitto/lib/cpp/)
- set(MOSQUITTO_LIBRARY_DIR  ${CMAKE_BINARY_DIR}/mosquitto-build/lib/cpp/)
- 
--set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto ssl)
-+set(MOSQUITTO_LIBRARIES  mosquittopp.a crypto.a ssl.a)
- 
- include_directories(${MOSQUITTO_INCLUDE_DIR})
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index 25adc1e..a8a0e0e 100755
 --- a/cmake/External-OpenCV.cmake
