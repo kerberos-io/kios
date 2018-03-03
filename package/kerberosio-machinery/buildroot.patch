@@ -1,41 +1,3 @@
-diff --git a/.travis.yml b/.travis.yml
-index b96f04d..8c84722 100755
---- a/.travis.yml
-+++ b/.travis.yml
-@@ -1,10 +1,14 @@
-+branches:
-+  except:
-+    - buildroot-patch
-+
- sudo:
-     - false
--    
-+
- os:
-     - linux
--    
--language: 
-+
-+language:
-     - cpp
- 
- services:
-@@ -17,7 +21,7 @@ before_install:
-     - sudo apt-get update
-     - sudo apt-get install x264 v4l-utils
- 
--script: 
-+script:
-     mkdir build && cd build && cmake .. && make && make check && sudo make install
- 
- notifications:
-@@ -39,4 +43,4 @@ after_success:
-             docker build --build-arg APP_ENV="$TRAVIS_BRANCH" -t kerberos/machinery:$TRAVIS_BRANCH .;
-             docker push kerberos/machinery:$TRAVIS_BRANCH;
-         fi
--      fi
-\ No newline at end of file
-+      fi
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index fd95600..f0b0e1b 100755
 --- a/cmake/External-Googletest.cmake
@@ -74,7 +36,7 @@ index 25adc1e..a8a0e0e 100755
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
 +    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/
  )
- 
+
 -set(OPENCV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/thirdparty/include/)
 +set(OPENCV_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/include/)
  if(NOT WIN32)
@@ -86,7 +48,7 @@ index 25adc1e..a8a0e0e 100755
 @@ -63,9 +64,9 @@ set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video open
  include_directories(${OPENCV_INCLUDE_DIR})
  link_directories(${OPENCV_LIBRARY_DIR})
- 
+
 -if(EXISTS "${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake")
 -    include(${CMAKE_BINARY_DIR}/thirdparty/share/OpenCV/OpenCVConfig.cmake)
 +if(EXISTS "${CMAKE_SOURCE_DIR}/../../host/usr/arm-buildroot-linux-gnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake")
@@ -108,7 +70,7 @@ index 6f2f55c..cba0df1 100755
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DBUILD_SHARED_LIBS=OFF
  )
- 
+
 diff --git a/cmake/External-Restclient.cmake b/cmake/External-Restclient.cmake
 index 5cd3a44..1b41703 100755
 --- a/cmake/External-Restclient.cmake
@@ -124,7 +86,7 @@ index 5cd3a44..1b41703 100755
  )
 @@ -18,4 +18,4 @@ set(RESTCLIENT_LIBRARY_DIR ${CMAKE_BINARY_DIR}/thirdparty/lib/)
  set(RESTCLIENT_LIBRARIES restclient-cpp curl)
- 
+
  include_directories(${RESTCLIENT_INCLUDE_DIR})
 -link_directories(${RESTCLIENT_LIBRARY_DIR})
 \ No newline at end of file
