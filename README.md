@@ -5,7 +5,7 @@
 
 ## Vote for features
 
-[![Feature Requests](http://feathub.com/kerberos-io/machinery?format=svg)](http://feathub.com/kerberos-io/machinery)
+[![Feature Requests](https://feathub.com/kerberos-io/machinery?format=svg)](https://feathub.com/kerberos-io/machinery)
 
 ## What is KiOS?
 A Linux OS created by Buildroot which runs Kerberos.io out-of-the-box. This repository cross-compiles for the Raspberry Pi 1, 2 and 3. Below you can find an installation script for Ubuntu 14 and CentOS 7. When the compilation is done, three different images will be available in the current working directory.
@@ -57,7 +57,7 @@ Please go to our [documentation website](https://doc.kerberos.io/2.0/installatio
     ./build.sh all
     ./build.sh all mkrelease
 
-##How to build KiOS on DigitalOcean
+## How to build KiOS on DigitalOcean
 If you don't want to build KiOS on your local workingstation but you prefer to build it on a VM at DigitalOcean you're at the right place. You will find a script at the root of the KiOS repository named `deploy.py`.
 
 The python script will need some environment variables and use the DigitalOcean API to create a VM, build KiOS, transfer the images to your local workingstation and destory the VM again.
