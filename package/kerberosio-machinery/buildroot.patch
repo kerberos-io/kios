@@ -1,34 +1,15 @@
 diff --git a/.travis.yml b/.travis.yml
-index b240e45..940b3eb 100755
+index a4c4dc8..cfd18f6 100755
 --- a/.travis.yml
 +++ b/.travis.yml
-@@ -1,10 +1,14 @@
+@@ -1,3 +1,7 @@
 +branches:
 +  except:
 +    - buildroot-patch
 +
  sudo:
-     - false
--    
-+
+ - false
  os:
-     - linux
--    
--language: 
-+
-+language:
-     - cpp
- 
- services:
-@@ -17,7 +21,7 @@ before_install:
-     - sudo apt-get update
-     - sudo apt-get install x264 v4l-utils
- 
--script: 
-+script:
-     mkdir build && cd build && cmake .. && make && make check && sudo make install
- 
- notifications:
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index fd95600..f0b0e1b 100755
 --- a/cmake/External-Googletest.cmake
