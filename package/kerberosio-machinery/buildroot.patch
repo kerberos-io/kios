@@ -1,41 +1,15 @@
 diff --git a/.travis.yml b/.travis.yml
-index b96f04d..8c84722 100755
+index a4c4dc8..cfd18f6 100755
 --- a/.travis.yml
 +++ b/.travis.yml
-@@ -1,10 +1,14 @@
+@@ -1,3 +1,7 @@
 +branches:
 +  except:
 +    - buildroot-patch
 +
  sudo:
-     - false
--    
-+
+ - false
  os:
-     - linux
--    
--language: 
-+
-+language:
-     - cpp
- 
- services:
-@@ -17,7 +21,7 @@ before_install:
-     - sudo apt-get update
-     - sudo apt-get install x264 v4l-utils
- 
--script: 
-+script:
-     mkdir build && cd build && cmake .. && make && make check && sudo make install
- 
- notifications:
-@@ -39,4 +43,4 @@ after_success:
-             docker build --build-arg APP_ENV="$TRAVIS_BRANCH" -t kerberos/machinery:$TRAVIS_BRANCH .;
-             docker push kerberos/machinery:$TRAVIS_BRANCH;
-         fi
--      fi
-\ No newline at end of file
-+      fi
 diff --git a/cmake/External-Googletest.cmake b/cmake/External-Googletest.cmake
 index fd95600..f0b0e1b 100755
 --- a/cmake/External-Googletest.cmake
@@ -51,17 +25,17 @@ index fd95600..f0b0e1b 100755
    INSTALL_COMMAND ""
  )
 diff --git a/cmake/External-Mosquitto.cmake b/cmake/External-Mosquitto.cmake
-index 3873da3..6d50002 100644
+index 74ac55c..9d34110 100644
 --- a/cmake/External-Mosquitto.cmake
 +++ b/cmake/External-Mosquitto.cmake
 @@ -10,6 +10,7 @@ ExternalProject_Add(mosquitto
    CMAKE_GENERATOR ${gen}
-   INSTALL_COMMAND mkdir -p ../thirdparty/lib/ && cp lib/cpp/libmosquittopp.a ../thirdparty/lib/
+   INSTALL_COMMAND mkdir -p ../thirdparty/lib/ && cp lib/cpp/libmosquittopp.a ../thirdparty/lib/ && cp lib/libmosquitto.a ../thirdparty/lib/
    CMAKE_ARGS
 +    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/../../host/usr/share/buildroot/toolchainfile.cmake
      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty
-     -DWITH_UUID=no
-     -DWITH_WEBSOCKETS=no
+     -DWITH_WEBSOCKETS=OFF
+     -DWITH_SRV=OFF
 diff --git a/cmake/External-OpenCV.cmake b/cmake/External-OpenCV.cmake
 index 25adc1e..a8a0e0e 100755
 --- a/cmake/External-OpenCV.cmake
