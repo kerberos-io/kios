@@ -25,10 +25,7 @@ watch() {
                 continue
             else
                 logger -t netwatch -s "cannot connect to $netwatch_host:$netwatch_port, rebooting"
-                /etc/init.d/S35wifi stop
-                /etc/init.d/S35wifi start
-                /etc/init.d/S40network stop
-                /etc/init.d/S40network start
+                reboot
             fi
         fi
     done
