@@ -26,7 +26,7 @@ define KERBEROSIO_WEB_BUILD_CMDS
         cd public; \
         bower install --allow-root; \
         npm install grunt-contrib-watch grunt-contrib-less grunt-contrib-cssmin grunt-contrib-clean; \
-				grunt cleanUpJS; \
+				grunt cleanUpJS --force; \
 				rm -rf node_modules; \
     )
 endef
