@@ -30,7 +30,7 @@ ROOT_START="100"  # MB
 ROOT_SRC=${IMG_DIR}/rootfs.tar
 ROOT=${IMG_DIR}/.root
 ROOT_IMG=${IMG_DIR}/root.img
-ROOT_SIZE="220"  # MB
+ROOT_SIZE="375"  # MB
 
 GUARD_SIZE="10"  # MB
 DISK_SIZE=$((ROOT_START + ROOT_SIZE + GUARD_SIZE))
@@ -188,4 +188,3 @@ mv ${DISK_IMG} $(dirname ${DISK_IMG})/${OS_NAME}-${BOARD}.img
 DISK_IMG=$(dirname ${DISK_IMG})/${OS_NAME}-${BOARD}.img
 
 msg "$(realpath "${DISK_IMG}") is ready"
-

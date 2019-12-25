@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SYS_CONF="/etc/wpa_supplicant.conf"
-BOOT_CONF="/boot/wpa_supplicant.conf"
+BOOT_CONF="/boot/wireless.conf"
 CONF="/data/etc/wpa_supplicant.conf"
 
 LOG="/var/log/wpa_supplicant.log"
@@ -66,19 +66,19 @@ start() {
             return 1
         fi
     done
-    
+
     module=$(basename $(readlink /sys/class/net/${OS_WLAN}/device/driver/module 2>/dev/null) 2>/dev/null)
 
     iwconfig ${OS_WLAN} power off &> /dev/null
     iw ${OS_WLAN} set power_save off &> /dev/null
-    
+
     opts="-i${OS_WLAN} -c${CONF} -D${DRIVER} -B"
     if [[ ${OS_DEBUG} == "true" ]]; then
         opts+=" -dd"
     fi
-    
+
     ${PROG} ${opts} &>> ${LOG}
-    
+
     count=0
     while true; do
         sleep 1
@@ -113,16 +113,16 @@ case "$1" in
     start)
         start
         ;;
-        
+
     stop)
         stop
         ;;
-        
+
     restart)
         stop
         start
         ;;
-    
+
     *)
         echo "Usage: $0 {start|stop|restart}"
         exit 1
@@ -131,4 +131,3 @@ esac
 # continue after an unsuccessfull wifi start
 # as we may still have an ethernet connection available
 exit 0
-

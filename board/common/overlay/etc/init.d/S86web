@@ -1,0 +1,52 @@
+#!/bin/bash
+
+sys_conf="/var/www/web"
+conf="/data/web/config"
+
+start() {
+    echo "Configuring kerberos.io web"
+
+    if [ -d $sys_conf ] && ! [ -d $conf ]; then
+
+        mkdir -p /data/varlib/nginx
+        chmod 755 /data/varlib/nginx
+
+        mkdir -p /data/web
+
+        cp /etc/kios.conf /data/etc/kios.conf
+
+        cp -R /var/www/web/storage /data/web/
+        chmod -R 777 /data/web/storage
+
+        cp -R /var/www/web/config /data/web/
+        chmod -R 777 /data/web/config/kerberos.php
+
+        cp -R /var/www/web/bootstrap /data/web/
+        chmod -R 777 /data/web/bootstrap/cache
+    fi
+}
+
+stop() {
+    echo "Stopping kerberos.io web"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    restart)
+        stop
+        start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?

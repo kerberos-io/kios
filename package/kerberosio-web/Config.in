@@ -1,0 +1,4 @@
+config BR2_PACKAGE_KERBEROSIO_WEB
+	bool "kerberosio-web"
+	help
+	      This will install the web interface

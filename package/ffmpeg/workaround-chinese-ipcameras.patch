@@ -1,0 +1,17 @@
+diff --git a/libavformat/rtsp.c b/libavformat/rtsp.c
+index 261e970b75..a8f10485f9 100644
+--- a/libavformat/rtsp.c
++++ b/libavformat/rtsp.c
+@@ -949,6 +949,12 @@ static void rtsp_parse_transport(AVFormatContext *s,
+                                      &th->server_port_max, &p);
+                 }
+             } else if (!strcmp(parameter, "interleaved")) {
++		/*
++		 * Workaround for some chinese cameras 
++		 * This should be safe as RFC states that 'interleaved' is for TCP 
++		 * ref Page 40 of rfc2326 
++		 */    
++		th->lower_transport = RTSP_LOWER_TRANSPORT_TCP;
+                 if (*p == '=') {
+                     p++;
+                     rtsp_parse_range(&th->interleaved_min,

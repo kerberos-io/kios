@@ -1,0 +1,78 @@
+#!/bin/bash
+
+sys_conf="/etc/opt/kerberosio/config/config.xml"
+conf="/data/machinery/config/config.xml"
+watch_conf="/data/etc/watch.conf"
+
+if [ -f $sys_conf ] && ! [ -f $conf ]; then
+    mkdir -p /data/machinery/config
+    cp -R /etc/opt/kerberosio/config/* /data/machinery/config/
+    chmod -R 777 /data/machinery/config/
+    mkdir -p /data/machinery/symbols
+    chmod -R 777 /data/machinery/symbols
+    mkdir -p /data/machinery/logs
+    touch /data/machinery/logs/log.stash
+    chmod -R 777 /data/machinery/logs
+    mkdir -p /data/machinery/capture
+    chmod -R 777 /data/machinery/capture
+    mkdir -p /data/machinery/h264
+    chmod -R 777 /data/machinery/h264
+fi
+
+test -f $watch_conf && source $watch_conf || exit 0
+
+watch() {
+    echo "Starting kerberos.io machinery"
+    while true; do
+        pid=$(pidof kerberosio)
+        if [ "$pid" = "" ]; then
+            { kerberosio --config $conf; } &>/dev/null
+        fi
+        sleep 3
+    done
+}
+
+autoremoval() {
+    while true; do
+        sleep 60
+        if [[ $(df -h | grep /dev/mmcblk0p3 | head -1 | awk -F' ' '{ print $5/1 }' | tr ['%'] ["0"]) -gt 90 ]];
+        then
+            echo "Cleaning disk"
+            find /data/machinery/capture/ -type f | sort | head -n 100 | xargs rm;
+        fi;
+    done
+}
+
+start() {
+    watch &
+
+    if [ "$AUTOREMOVAL" == "yes" ]; then
+        autoremoval &
+    fi
+}
+
+stop() {
+    echo "Stopping kerberos.io machinery"
+    ps | grep kerberosio | grep -v $$ | grep -v grep | tr -s ' ' | sed -e 's/^\s//' | cut -d ' ' -f 1 | xargs -r kill
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    restart)
+        stop
+        start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?

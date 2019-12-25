@@ -1,0 +1,5 @@
+config BR2_PACKAGE_RESTCLIENT
+	bool "restclient"
+	depends on BR2_PACKAGE_LIBCURL
+	help
+	  A restclient in C++

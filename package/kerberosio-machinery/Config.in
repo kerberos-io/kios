@@ -1,0 +1,13 @@
+config BR2_PACKAGE_KERBEROSIO_MACHINERY
+        bool "kerberosio-machinery"
+        help
+	    This will install the machinery
+
+
+config BR2_PACKAGE_KERBEROSIO_MACHINERY_RPI
+        bool "kerberosio-machinery-rpi"
+	depends on BR2_PACKAGE_RPI_FIRMWARE
+	depends on BR2_PACKAGE_RPI_USERLAND
+        help
+	    This will install the RPI firmware
+	    and userland libraries first.

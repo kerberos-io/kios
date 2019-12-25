@@ -1,0 +1,25 @@
+From e43f0f461f3e0caa6ecdcf897771fd76687cb289 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A9dric=20Verstraeten?= <hello@cedric.ws>
+Date: Wed, 21 Jun 2017 17:53:14 +0200
+Subject: [PATCH 1/1] change config path
+
+---
+ config/app.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config/app.php b/config/app.php
+index 65b65eb..275996c 100644
+--- a/config/app.php
++++ b/config/app.php
+@@ -15,7 +15,7 @@ return [
+ 
+     'version' => '2.2.1',
+ 
+-    'config' => '/etc/opt/kerberosio/config',
++    'config' => '/data/machinery/config',
+ 
+     'filesystem' => [
+ 
+-- 
+2.12.0
+
