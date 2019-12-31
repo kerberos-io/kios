@@ -5,7 +5,7 @@
 ################################################################################
 
 X264_VERSION = df79067c
-X264_SITE = git://code.videolan.org/videolan/x264.git
+X264_SITE = https://code.videolan.org/videolan/x264
 X264_LICENSE = GPLv2+
 X264_DEPENDENCIES = host-pkgconf
 X264_LICENSE_FILES = COPYING
