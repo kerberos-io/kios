@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-X264_VERSION = 20181002-2245
+X264_VERSION = 20160412-2245-stable
 X264_SITE = http://download.videolan.org/x264/snapshots
 X264_SOURCE = x264-snapshot-$(X264_VERSION).tar.bz2
 X264_LICENSE = GPL-2.0+
