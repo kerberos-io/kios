@@ -48,7 +48,7 @@ cp $DIR/output/raspberrypi2/images/kios-raspberrypi2-*.gz $DIR/releases/rpi2/$DA
 for file in $DIR/output/raspberrypi2/build/kerberosio-machinery*/kerberosio*; do cp -v -- "$file" "$DIR/releases/rpi2/$DATE/rpi2-machinery-${file##*/}"; done
 cd $DIR/output/raspberrypi2/target/var/www/web && sed -i 's/\/data\/machinery\/config/\/\etc\/opt\/kerberosio\/config/g' config/app.php && tar czf $DIR/releases/rpi2/$DATE/web.tar.gz .
 cp $DIR/output/raspberrypi2/target/usr/lib/libx265.so.160 $DIR/releases/rpi2/$DATE/rpi2-libx265.so.160
-cp $DIR/output/raspberrypi2/target/usr/lib/libx264.so.148 $DIR/releases/rpi4/$DATE/rpi2-libx264.so.148
+cp $DIR/output/raspberrypi2/target/usr/lib/libx264.so.148 $DIR/releases/rpi2/$DATE/rpi2-libx264.so.148
 
 echo "Preparing release for Raspberry Pi 3 board"
 
@@ -57,7 +57,7 @@ cp $DIR/output/raspberrypi3/images/kios-raspberrypi3-*.gz $DIR/releases/rpi3/$DA
 for file in $DIR/output/raspberrypi3/build/kerberosio-machinery*/kerberosio*; do cp -v -- "$file" "$DIR/releases/rpi3/$DATE/rpi3-machinery-${file##*/}"; done
 cd $DIR/output/raspberrypi3/target/var/www/web && sed -i 's/\/data\/machinery\/config/\/\etc\/opt\/kerberosio\/config/g' config/app.php && tar czf $DIR/releases/rpi3/$DATE/web.tar.gz .
 cp $DIR/output/raspberrypi3/target/usr/lib/libx265.so.160 $DIR/releases/rpi3/$DATE/rpi3-libx265.so.160
-cp $DIR/output/raspberrypi3/target/usr/lib/libx264.so.148 $DIR/releases/rpi4/$DATE/rpi3-libx264.so.148
+cp $DIR/output/raspberrypi3/target/usr/lib/libx264.so.148 $DIR/releases/rpi3/$DATE/rpi3-libx264.so.148
 
 echo "Preparing release for Raspberry Pi 4 board"
 
